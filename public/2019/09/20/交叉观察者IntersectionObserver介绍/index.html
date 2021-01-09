@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="IntersectionObserver,浏览器API," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="介绍 关于IntersectionObserver，MDN里是这么介绍的:   IntersectionObserver接口，提供了一种异步观察目标元素与其祖先元素或者顶级文档视窗(viewport)交叉状态的方法，祖先元素与视窗被称为根(root)   通过上面的介绍，我们大概知道了IntersectionObserver翻译为“交叉观察者”，它的任务就是监听目标元素跟指定父元素(若未指定，则默">
+<meta property="og:type" content="article">
+<meta property="og:title" content="交叉观察者IntersectionObserver介绍">
+<meta property="og:url" content="http://example.com/2019/09/20/%E4%BA%A4%E5%8F%89%E8%A7%82%E5%AF%9F%E8%80%85IntersectionObserver%E4%BB%8B%E7%BB%8D/index.html">
+<meta property="og:site_name" content="不忘初心，砥砺前行">
+<meta property="og:description" content="介绍 关于IntersectionObserver，MDN里是这么介绍的:   IntersectionObserver接口，提供了一种异步观察目标元素与其祖先元素或者顶级文档视窗(viewport)交叉状态的方法，祖先元素与视窗被称为根(root)   通过上面的介绍，我们大概知道了IntersectionObserver翻译为“交叉观察者”，它的任务就是监听目标元素跟指定父元素(若未指定，则默">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://github.com/bettermu/blog-picture-store/blob/master/20190921/1.png?raw=true">
+<meta property="og:image" content="https://github.com/bettermu/blog-picture-store/blob/master/20190921/2.png?raw=true">
+<meta property="og:image" content="https://github.com/bettermu/blog-picture-store/blob/master/20190921/3.gif?raw=true">
+<meta property="og:image" content="https://github.com/bettermu/blog-picture-store/blob/master/20190921/4.gif?raw=true">
+<meta property="og:image" content="https://github.com/bettermu/blog-picture-store/blob/master/20190921/5.gif?raw=true">
+<meta property="og:image" content="https://github.com/bettermu/blog-picture-store/blob/master/20190921/6.gif?raw=true">
+<meta property="og:image" content="https://github.com/bettermu/blog-picture-store/blob/master/20190921/8.gif?raw=true">
+<meta property="og:image" content="https://github.com/bettermu/blog-picture-store/blob/master/20190921/9.gif?raw=true">
+<meta property="og:image" content="https://github.com/bettermu/blog-picture-store/blob/master/20190921/10.gif?raw=true">
+<meta property="og:image" content="https://github.com/bettermu/blog-picture-store/blob/master/20190921/11.gif?raw=true">
+<meta property="og:image" content="https://github.com/bettermu/blog-picture-store/blob/master/20190921/12.gif?raw=true">
+<meta property="og:image" content="https://github.com/bettermu/blog-picture-store/blob/master/20190921/13.gif?raw=true">
+<meta property="og:image" content="https://github.com/bettermu/blog-picture-store/blob/master/20190921/14.gif?raw=true">
+<meta property="article:published_time" content="2019-09-20T13:08:19.000Z">
+<meta property="article:modified_time" content="2019-09-21T03:57:42.822Z">
+<meta property="article:author" content="better沐小泡">
+<meta property="article:tag" content="IntersectionObserver">
+<meta property="article:tag" content="浏览器API">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/bettermu/blog-picture-store/blob/master/20190921/1.png?raw=true">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2019/09/20/交叉观察者IntersectionObserver介绍/"/>
+
+
+
+
+
+  <title>交叉观察者IntersectionObserver介绍 | 不忘初心，砥砺前行</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a target="_blank" rel="noopener" href="https://github.com/bettermu" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">不忘初心，砥砺前行</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">前端攻城狮</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-project">
+          <a href="/project/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tasks"></i> <br />
+            
+            项目
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/09/20/%E4%BA%A4%E5%8F%89%E8%A7%82%E5%AF%9F%E8%80%85IntersectionObserver%E4%BB%8B%E7%BB%8D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不忘初心，砥砺前行">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">交叉观察者IntersectionObserver介绍</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-20T21:08:19+08:00">
+                2019-09-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IntersectionObserver/" itemprop="url" rel="index">
+                    <span itemprop="name">IntersectionObserver</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IntersectionObserver/BOM/" itemprop="url" rel="index">
+                    <span itemprop="name">BOM</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><blockquote>
+<p>关于IntersectionObserver，MDN里是这么介绍的:</p>
+</blockquote>
+<blockquote>
+<p>IntersectionObserver接口，提供了一种异步观察目标元素与其祖先元素或者顶级文档视窗(viewport)交叉状态的方法，祖先元素与视窗被称为根(root)</p>
+</blockquote>
+<blockquote>
+<p>通过上面的介绍，我们大概知道了IntersectionObserver翻译为“交叉观察者”，它的任务就是监听目标元素跟指定父元素(若未指定，则默认为视窗)是否发生交叉行为，简单理解就是监听目标元素是否进入或者离开了指定父元素的内部。</p>
+</blockquote>
+<p><img src="https://github.com/bettermu/blog-picture-store/blob/master/20190921/1.png?raw=true"></p>
+<h2 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h2><h3 id="1、构造函数"><a href="#1、构造函数" class="headerlink" title="1、构造函数"></a>1、构造函数</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> IntersectionObserver(callback,options);</span><br></pre></td></tr></table></figure>
+<h3 id="2、callback"><a href="#2、callback" class="headerlink" title="2、callback"></a>2、callback</h3><blockquote>
+<p>发生交叉的回调，接受一个entries参数，返回当前已监听并且发生了交叉的目标集合</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> IntersectionObserver(<span class="function"><span class="params">entries</span> =&gt;</span> &#123;</span><br><span class="line">    entries.forEach(<span class="function"><span class="params">item</span> =&gt;</span> <span class="built_in">console</span>.log(item))</span><br><span class="line">&#125;,options);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>下面介绍下item里包含的常用属性：</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="left">属性</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">boundingClientRect</td>
+<td align="left">元素空间信息</td>
+</tr>
+<tr>
+<td align="left">intersectionRatio</td>
+<td align="left">元素可见区域的占比</td>
+</tr>
+<tr>
+<td align="left">isIntersecting</td>
+<td align="left">字面理解为是否正在交叉，可用做判断元素是否可见</td>
+</tr>
+<tr>
+<td align="left">target</td>
+<td align="left">目标节点，与event,target类似</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>这里需要注意的是，页面初始化的时候，会触发一次callback，其中的entries为所有已监听的目标集合</p>
+</blockquote>
+<h3 id="3、options"><a href="#3、options" class="headerlink" title="3、options"></a>3、options</h3><blockquote>
+<p>顾名思义，他是一个配置参数，对象类型，非必填，常用属性如下：</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="left">属性</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">root</td>
+<td align="left">指定父元素，默认为视窗viewport</td>
+</tr>
+<tr>
+<td align="left">rootMargin</td>
+<td align="left">触发交叉的偏移值，默认为“0px 0px 0px 0px”(上左下右，正数为向外扩散，负数则向内收缩)</td>
+</tr>
+</tbody></table>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> IntersectionObserver(callback, &#123;</span><br><span class="line">  root: <span class="built_in">document</span>.querySelector(<span class="string">&quot;xx&quot;</span>),</span><br><span class="line">  rootMargin: <span class="string">&quot;0px 0px -100px 0px&quot;</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果设置rootMargin为”20px 0px 30px 30px”,相当于范围相对于视窗外扩，如下图，那么元素未达到视窗时，就已经切换为可见状态了:</p>
+</blockquote>
+<p><img src="https://github.com/bettermu/blog-picture-store/blob/master/20190921/2.png?raw=true"></p>
+<h3 id="4、常用方法"><a href="#4、常用方法" class="headerlink" title="4、常用方法"></a>4、常用方法</h3><table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">说明</th>
+<th align="left">参数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">observe</td>
+<td align="left">开始监听一个目标元素</td>
+<td align="left">节点</td>
+</tr>
+<tr>
+<td align="left">unobserve</td>
+<td align="left">停止监听一个目标元素</td>
+<td align="left">节点</td>
+</tr>
+<tr>
+<td align="left">takeRecords</td>
+<td align="left">返回所有监听的目标元素集合</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">disconnect</td>
+<td align="left">停止所有监听</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><h3 id="1-假设页面上有一个class-”box”的盒子且父元素为视窗："><a href="#1-假设页面上有一个class-”box”的盒子且父元素为视窗：" class="headerlink" title="1. 假设页面上有一个class=”box”的盒子且父元素为视窗："></a>1. 假设页面上有一个class=”box”的盒子且父元素为视窗：</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> box = <span class="built_in">document</span>.querySelector(<span class="string">&quot;.box&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> observer = <span class="keyword">new</span> IntersectionObserver(<span class="function"><span class="params">entries</span> =&gt;</span> &#123;</span><br><span class="line">  entries.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> tips = item.isIntersecting ? <span class="string">&quot;进入了父元素的内部&quot;</span> : <span class="string">&quot;离开了父元素的内部&quot;</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(tips);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">observer.observe(box); <span class="comment">// 监听一个box</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>效果如下：       </p>
+</blockquote>
+<p><img src="https://github.com/bettermu/blog-picture-store/blob/master/20190921/3.gif?raw=true"></p>
+<h3 id="2-假设页面上有多个class-”box”的盒子且父元素为视窗："><a href="#2-假设页面上有多个class-”box”的盒子且父元素为视窗：" class="headerlink" title="2. 假设页面上有多个class=”box”的盒子且父元素为视窗："></a>2. 假设页面上有多个class=”box”的盒子且父元素为视窗：</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> box = <span class="built_in">document</span>.querySelectorAll(<span class="string">&quot;.box&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> observer = <span class="keyword">new</span> IntersectionObserver(<span class="function"><span class="params">entries</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">`发生交叉行为，目标元素有<span class="subst">$&#123;entries.length&#125;</span>个`</span>));</span><br><span class="line"></span><br><span class="line">box.forEach(<span class="function"><span class="params">item</span> =&gt;</span> observer.observe(item)); <span class="comment">// 监听多个box</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>当所有盒子距离视窗顶部距离一致时，效果如下:</p>
+</blockquote>
+<p><img src="https://github.com/bettermu/blog-picture-store/blob/master/20190921/4.gif?raw=true"></p>
+<blockquote>
+<p>当所有盒子距离视窗顶部距离不一致时，效果如下:</p>
+</blockquote>
+<p><img src="https://github.com/bettermu/blog-picture-store/blob/master/20190921/5.gif?raw=true"></p>
+<blockquote>
+<p>关于举例上面两种情况，因为entries是返回当前已监听并且发生了交叉的目标集合，第一种情况是大家一起发生了交叉，因此每次返回的长度为3，第二种情况则是每个目标轮流发生交叉，且每次只触发一个，因此集合每次返回的长度为1。</p>
+</blockquote>
+<h3 id="3-指定父元素"><a href="#3-指定父元素" class="headerlink" title="3. 指定父元素"></a>3. 指定父元素</h3><blockquote>
+<p>假设html如下:</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;parent&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;child&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>然后开始监听：</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> child = <span class="built_in">document</span>.querySelector(<span class="string">&quot;.child&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> observer = <span class="keyword">new</span> IntersectionObserver(<span class="function"><span class="params">entries</span> =&gt;</span> &#123;</span><br><span class="line">  entries.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(item.isIntersecting ? <span class="string">&quot;可见&quot;</span> : <span class="string">&quot;不可见&quot;</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;, &#123;</span><br><span class="line">  root: <span class="built_in">document</span>.querySelector(<span class="string">&quot;.parent&quot;</span>)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">observer.observe(child); <span class="comment">// 开始监听child</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>效果如下：</p>
+</blockquote>
+<p><img src="https://github.com/bettermu/blog-picture-store/blob/master/20190921/6.gif?raw=true"></p>
+<h2 id="实际应用"><a href="#实际应用" class="headerlink" title="实际应用"></a>实际应用</h2><h3 id="1、图片懒加载"><a href="#1、图片懒加载" class="headerlink" title="1、图片懒加载"></a>1、图片懒加载</h3><blockquote>
+<p>以前我们做图片懒加载，都是监听浏览器的滚动，然后遍历拿到每个图片的空间信息，然后判断一些位置信息，从而进行图片加载；而现在，只需要交给交叉观察者去做：</p>
+</blockquote>
+<blockquote>
+<p>假设html结构如下：</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 多个</span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;&quot;</span> <span class="attr">data-origin</span>=<span class="string">&quot;图片链接&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>然后开始监听：</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> images = <span class="built_in">document</span>.querySelectorAll(<span class="string">&quot;img.lazyload&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> observer = <span class="keyword">new</span> IntersectionObserver(<span class="function"><span class="params">entries</span> =&gt;</span> &#123;</span><br><span class="line">  entries.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (item.isIntersecting) &#123;</span><br><span class="line">      item.target.src = item.target.dataset.origin; <span class="comment">// 开始加载图片</span></span><br><span class="line">      observer.unobserve(item.target); <span class="comment">// 停止监听已开始加载的图片</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">images.forEach(<span class="function"><span class="params">item</span> =&gt;</span> observer.observe(item));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>效果如下：</p>
+</blockquote>
+<p><img src="https://github.com/bettermu/blog-picture-store/blob/master/20190921/8.gif?raw=true"></p>
+<blockquote>
+<p>把网速调慢：</p>
+</blockquote>
+<p>![](<a target="_blank" rel="noopener" href="https://github.com/bettermu/blog-picture-store/blob/master/20190921/7.gif?raw=true">https://github.com/bettermu/blog-picture-store/blob/master/20190921/7.gif?raw=true</a></p>
+<blockquote>
+<p>当滚动条为横向滚动的时候，我们依然可以进行懒加载的监听：</p>
+</blockquote>
+<p><img src="https://github.com/bettermu/blog-picture-store/blob/master/20190921/9.gif?raw=true"></p>
+<blockquote>
+<p>传统的懒加载只是监听全局滚动条的滚动，像这种小细节还是无法实现的（传统的实现方法并不是判断目标是否出现在视窗，所以横向的图片会一起加载，即使你没有向左滑动），所以这也是交叉观察者的一大优点</p>
+</blockquote>
+<h3 id="2、触底"><a href="#2、触底" class="headerlink" title="2、触底"></a>2、触底</h3><blockquote>
+<p>触底加载的方式，在移动端列表的场景中十分常见，通常我们是通过监听列表本身的滚动距离与列表高度和视口高度的视差进行比较，从而判断是否触底。但是有了交叉观察者之后，我们的做法就很简单了。</p>
+</blockquote>
+<blockquote>
+<p>我们可以在列表底部，放置一个参照元素，我们让交叉观察者去监听：</p>
+</blockquote>
+<blockquote>
+<p>html结构如下:</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 数据列表 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>index<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 参照元素 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;reference&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>然后监听参照元素：</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> IntersectionObserver(<span class="function"><span class="params">entries</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> item = entries[<span class="number">0</span>]; <span class="comment">// 拿第一个就行，反正只有一个</span></span><br><span class="line">  <span class="keyword">if</span> (item.isIntersecting) <span class="built_in">console</span>.log(<span class="string">&quot;滚动到了底部，开始请求数据&quot;</span>);</span><br><span class="line">&#125;).observe(<span class="built_in">document</span>.querySelector(<span class="string">&quot;.reference&quot;</span>)); <span class="comment">// 监听参照元素</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>效果如下：</p>
+</blockquote>
+<p><img src="https://github.com/bettermu/blog-picture-store/blob/master/20190921/10.gif?raw=true"></p>
+<h3 id="3、吸顶"><a href="#3、吸顶" class="headerlink" title="3、吸顶"></a>3、吸顶</h3><blockquote>
+<p>实现元素吸顶的方式有很多种，如css的position: sticky，兼容性较差；如果用交叉观察者实现也很方便，同样也要放一个参照元素；</p>
+</blockquote>
+<blockquote>
+<p>假设html结构如下：</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 参照元素 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;reference&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">nav</span>&gt;</span>我可以吸顶<span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>假设scss代码如下：</p>
+</blockquote>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">nav</span> &#123;</span><br><span class="line">  &amp;<span class="selector-class">.fixed</span> &#123;</span><br><span class="line">    <span class="attribute">position</span>: fixed;</span><br><span class="line">    <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>开始监听：</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> nav = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;nav&#x27;</span>);</span><br><span class="line"><span class="keyword">let</span> reference = <span class="built_in">document</span>.querySelector(<span class="string">&quot;.reference&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> IntersectionObserver(<span class="function"><span class="params">entries</span> =&gt;</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> item = entries[<span class="number">0</span>];</span><br><span class="line">  <span class="keyword">let</span> top = item.boundingClientRect.top;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 当参照元素的的top值小于0，也就是在视窗的顶部的时候，开始吸顶，否则移除吸顶</span></span><br><span class="line">  <span class="keyword">if</span> (top &lt; <span class="number">0</span>) nav.classList.add(<span class="string">&quot;fixed&quot;</span>);</span><br><span class="line">  <span class="keyword">else</span> nav.classList.remove(<span class="string">&quot;fixed&quot;</span>);</span><br><span class="line"></span><br><span class="line">&#125;).observe(reference);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>效果如下:</p>
+</blockquote>
+<p><img src="https://github.com/bettermu/blog-picture-store/blob/master/20190921/11.gif?raw=true"></p>
+<blockquote>
+<p>如果这么简单就好了，这样会有个问题，如果滚的慢的时候，会掉进一个死循环：</p>
+</blockquote>
+<p><img src="https://github.com/bettermu/blog-picture-store/blob/master/20190921/12.gif?raw=true"></p>
+<blockquote>
+<p>为了方便观察，我们把参考元素加一个高度跟颜色：</p>
+</blockquote>
+<p><img src="https://github.com/bettermu/blog-picture-store/blob/master/20190921/13.gif?raw=true"></p>
+<blockquote>
+<p>看图，问题很明显，当给nav增加fixed定位的时候，nav脱离了文档流，因此参考元素会往下掉，然后就会又发生交叉，从而去除了fixed定位，陷入一个死循环……</p>
+</blockquote>
+<blockquote>
+<p>解决方式是，让参考元素脱离文档流，可以让它绝对定位至nav的上方：</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> nav = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;nav&#x27;</span>);</span><br><span class="line"><span class="keyword">let</span> reference = <span class="built_in">document</span>.querySelector(<span class="string">&quot;.reference&quot;</span>);</span><br><span class="line"></span><br><span class="line">reference.style.top = nav.offsetTop + <span class="string">&quot;px&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 以下代码不变 ...</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>效果如下</p>
+</blockquote>
+<p><img src="https://github.com/bettermu/blog-picture-store/blob/master/20190921/14.gif?raw=true"></p>
+<h2 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h2><blockquote>
+<p>IE不兼容，不过有<a target="_blank" rel="noopener" href="https://github.com/w3c/IntersectionObserver/tree/master/polyfill">官方的polyfill</a></p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <!-- 本文结束标记 -->
+<div>
+  
+    <div>
+  
+    <div style="text-align:center;color:#ccc;font-size:16px;">-------------&nbsp;本文结束&nbsp;<i class="fa fa-globe"></i>&nbsp;感谢你的阅读&nbsp;-------------</div>
+  
+</div>
+
+  
+</div>
+<!-- 本文结束标记END -->
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/IntersectionObserver/" rel="tag"><i class="fa fa-tag"></i> IntersectionObserver</a>
+          
+            <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8API/" rel="tag"><i class="fa fa-tag"></i> 浏览器API</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/20/%E9%93%9C%E9%99%B5%E5%9F%8E%E5%B8%82%E8%B6%85%E8%84%91%E5%89%8D%E7%AB%AF%E6%8A%80%E6%9C%AF%E6%A2%B3%E7%90%86/" rel="next" title="铜陵城市超脑前端技术梳理">
+                <i class="fa fa-chevron-left"></i> 铜陵城市超脑前端技术梳理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/11/12/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E9%87%8C%E5%85%B3%E4%BA%8Eel-scrollbar%E7%9A%84%E4%BD%BF%E7%94%A8/" rel="prev" title="记一次项目里关于el-scrollbar的使用">
+                记一次项目里关于el-scrollbar的使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/bettermu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/u/3199082000?refer_flag=1001030101_&is_all=1" target="_blank" title="Weibo">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.cnblogs.com/bettermu/" target="_blank" title="博客园">
+                      
+                        <i class="fa fa-fw fa-rss"></i>博客园</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/mu-xiao-feng-45-99/activities" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">用法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="nav-number">2.1.</span> <span class="nav-text">1、构造函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81callback"><span class="nav-number">2.2.</span> <span class="nav-text">2、callback</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81options"><span class="nav-number">2.3.</span> <span class="nav-text">3、options</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">2.4.</span> <span class="nav-text">4、常用方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90"><span class="nav-number">3.</span> <span class="nav-text">例子</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%81%87%E8%AE%BE%E9%A1%B5%E9%9D%A2%E4%B8%8A%E6%9C%89%E4%B8%80%E4%B8%AAclass-%E2%80%9Dbox%E2%80%9D%E7%9A%84%E7%9B%92%E5%AD%90%E4%B8%94%E7%88%B6%E5%85%83%E7%B4%A0%E4%B8%BA%E8%A7%86%E7%AA%97%EF%BC%9A"><span class="nav-number">3.1.</span> <span class="nav-text">1. 假设页面上有一个class&#x3D;”box”的盒子且父元素为视窗：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%81%87%E8%AE%BE%E9%A1%B5%E9%9D%A2%E4%B8%8A%E6%9C%89%E5%A4%9A%E4%B8%AAclass-%E2%80%9Dbox%E2%80%9D%E7%9A%84%E7%9B%92%E5%AD%90%E4%B8%94%E7%88%B6%E5%85%83%E7%B4%A0%E4%B8%BA%E8%A7%86%E7%AA%97%EF%BC%9A"><span class="nav-number">3.2.</span> <span class="nav-text">2. 假设页面上有多个class&#x3D;”box”的盒子且父元素为视窗：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%8C%87%E5%AE%9A%E7%88%B6%E5%85%83%E7%B4%A0"><span class="nav-number">3.3.</span> <span class="nav-text">3. 指定父元素</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">实际应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E5%9B%BE%E7%89%87%E6%87%92%E5%8A%A0%E8%BD%BD"><span class="nav-number">4.1.</span> <span class="nav-text">1、图片懒加载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E8%A7%A6%E5%BA%95"><span class="nav-number">4.2.</span> <span class="nav-text">2、触底</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E5%90%B8%E9%A1%B6"><span class="nav-number">4.3.</span> <span class="nav-text">3、吸顶</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%BC%E5%AE%B9%E6%80%A7"><span class="nav-number">5.</span> <span class="nav-text">兼容性</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <!--<div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">better沐小泡</span>
+
+  
+</div>
+-->
+
+<!-- 
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+-->
+
+<!-- 新增访客统计代码 -->
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-balance-scale"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">better沐小泡</span>
+</div>
+
+<div class="busuanzi-count">
+    <script async="" src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      访问用户： <span class="busuanzi-value" id="busuanzi_value_site_uv"></span> 人
+    </span>
+    <div class="powered-by"></div>
+    <span class="site-uv">
+      <i class="fa fa-eye"></i>
+      访问次数： <span class="busuanzi-value" id="busuanzi_value_site_pv"></span> 次
+    </span>
+    <!-- 博客字数统计 -->
+    <span class="site-pv">
+      <i class="fa fa-pencil"></i>
+      博客全站共： <span class="post-count"></span> 字
+    </span>
+</div>
+<!-- 新增访客统计代码 END-->
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <!-- 页面点击小红心 -->
+  <script type="text/javascript" src="/js/src/love.js"></script>
+
+</body>
+</html>

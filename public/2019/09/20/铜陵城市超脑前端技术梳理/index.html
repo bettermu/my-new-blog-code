@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Vue,前端技术栈," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="铜陵城市超脑前端技术栈梳理 今天的分享培训，分为三个部分，一个是对于项目中，前端采用的技术栈，进行一个简单的梳理。另外一个，就是如何去运行，如何去构建我们的前端项目，我会对其中的步骤进行讲解。最后，会给项目中的一些代码给出建议。  一、技术栈梳理 背景 前后端分离，敏捷，并行开发，责任和分工清晰。   vue全家桶，什么是vue全家桶，从前端项目构建，到开发，到部署上线，使用的都是基于vue生态链">
+<meta property="og:type" content="article">
+<meta property="og:title" content="铜陵城市超脑前端技术梳理">
+<meta property="og:url" content="http://example.com/2019/09/20/%E9%93%9C%E9%99%B5%E5%9F%8E%E5%B8%82%E8%B6%85%E8%84%91%E5%89%8D%E7%AB%AF%E6%8A%80%E6%9C%AF%E6%A2%B3%E7%90%86/index.html">
+<meta property="og:site_name" content="不忘初心，砥砺前行">
+<meta property="og:description" content="铜陵城市超脑前端技术栈梳理 今天的分享培训，分为三个部分，一个是对于项目中，前端采用的技术栈，进行一个简单的梳理。另外一个，就是如何去运行，如何去构建我们的前端项目，我会对其中的步骤进行讲解。最后，会给项目中的一些代码给出建议。  一、技术栈梳理 背景 前后端分离，敏捷，并行开发，责任和分工清晰。   vue全家桶，什么是vue全家桶，从前端项目构建，到开发，到部署上线，使用的都是基于vue生态链">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-09-20T13:04:04.000Z">
+<meta property="article:modified_time" content="2019-09-20T13:18:00.592Z">
+<meta property="article:author" content="better沐小泡">
+<meta property="article:tag" content="Vue">
+<meta property="article:tag" content="前端技术栈">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2019/09/20/铜陵城市超脑前端技术梳理/"/>
+
+
+
+
+
+  <title>铜陵城市超脑前端技术梳理 | 不忘初心，砥砺前行</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a target="_blank" rel="noopener" href="https://github.com/bettermu" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">不忘初心，砥砺前行</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">前端攻城狮</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-project">
+          <a href="/project/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tasks"></i> <br />
+            
+            项目
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/09/20/%E9%93%9C%E9%99%B5%E5%9F%8E%E5%B8%82%E8%B6%85%E8%84%91%E5%89%8D%E7%AB%AF%E6%8A%80%E6%9C%AF%E6%A2%B3%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不忘初心，砥砺前行">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">铜陵城市超脑前端技术梳理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-20T21:04:04+08:00">
+                2019-09-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Vue/" itemprop="url" rel="index">
+                    <span itemprop="name">Vue</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Vue/%E5%89%8D%E7%AB%AF%E6%8A%80%E6%9C%AF%E6%A0%88/" itemprop="url" rel="index">
+                    <span itemprop="name">前端技术栈</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="铜陵城市超脑前端技术栈梳理"><a href="#铜陵城市超脑前端技术栈梳理" class="headerlink" title="铜陵城市超脑前端技术栈梳理"></a>铜陵城市超脑前端技术栈梳理</h1><blockquote>
+<p>今天的分享培训，分为三个部分，一个是对于项目中，前端采用的技术栈，进行一个简单的梳理。另外一个，就是如何去运行，如何去构建我们的前端项目，我会对其中的步骤进行讲解。最后，会给项目中的一些代码给出建议。</p>
+</blockquote>
+<h2 id="一、技术栈梳理"><a href="#一、技术栈梳理" class="headerlink" title="一、技术栈梳理"></a>一、技术栈梳理</h2><blockquote>
+<p>背景 前后端分离，敏捷，并行开发，责任和分工清晰。</p>
+</blockquote>
+<blockquote>
+<p>vue全家桶，什么是vue全家桶，从前端项目构建，到开发，到部署上线，使用的都是基于vue生态链中的工具和类库。</p>
+</blockquote>
+<blockquote>
+<p>本项目使用的是vue + vue-cli + vue-router + axios + vuex + ant-design-vue，后面会依次给大家介绍这些东西都能干些什么，或者说，与以前的开发模式相比，都替代了什么</p>
+</blockquote>
+<h3 id="1、VUE"><a href="#1、VUE" class="headerlink" title="1、VUE"></a>1、VUE</h3><blockquote>
+<p>vue是一种用于构建用户界面的mvvm框架，它的核心专注于视图层，实际开发中，便于与第三方库进行功能整合。所谓的mvvm与mvc类似，后面的vm称为视图模型，其实就是mvc中的controller变化而来。为什么使用vue来进行项目的开发呢，它的优点如下：</p>
+</blockquote>
+<h4 id="组件化"><a href="#组件化" class="headerlink" title="组件化"></a>组件化</h4><blockquote>
+<p>组件是Vue强大的功能之一，组件可以扩展 HTML 元素，封装可重用的代码。在以前的开发模式中，可能前端页面需要用到多个地方的相似代码，我们都要依次进行复制粘贴和改动。但是组件化以后，我们只需要进行多次的引用就可以。比方说大屏里使用到的swiper组件，头部底部，视频播放组件，图片查看组件等，这些都是组件化的实践，代码分层解耦清晰，不仅利于前期开发，更利于后期的管理和维护。</p>
+</blockquote>
+<h4 id="virtual-dom"><a href="#virtual-dom" class="headerlink" title="virtual dom"></a>virtual dom</h4><blockquote>
+<p>体现vue的强大和性能优势的另一特点，就是虚拟dom，一般来说，dom操作比较昂贵，dom对象里包含的属性太多，导致每一次的改动，都是对浏览器性能的较大消耗。这里牵扯到浏览器的重绘和回流概念，这里不做引申。一句话概括，频繁的dom操作，会降低页面的性能，与数据量大小成正比，并且指数增长。</p>
+</blockquote>
+<blockquote>
+<p>因此，虚拟dom这个解决方案就出来了，什么是虚拟dom，实际上就是，使用js对象，模拟dom对象的重要属性和主要结构，dom对象的结构，节点之间的关系，其实就是数据结构里的树.因此就是js对象树，模拟dom对象树。将每一次dom数据的变化，进行有序的队列控制，在下一次的dom更新前，对新旧节点进行对比，生成差异，再进行统一的更新渲染，至于渲染时间的控制，这里牵扯到浏览器的事件触发原理，不做引申。可能这种阐述，比较难以理解，这些不重要，简单一句话概括，Virtual dom提升了页面性能，优化了浏览器的渲染，属于最大程度上的最佳实践。</p>
+</blockquote>
+<h4 id="响应式"><a href="#响应式" class="headerlink" title="响应式"></a>响应式</h4><blockquote>
+<p>真正解放我们，不用手动做view和model之间的变化响应的，便是这个响应式系统。</p>
+</blockquote>
+<blockquote>
+<p>“响应式”，是指当数据改变后，Vue 会通知到使用该数据的代码。视图渲染中使用了数据，数据改变后，视图也会自动更新。</p>
+</blockquote>
+<blockquote>
+<p>我们可以回想下，在jq时代，我们如何去实现视图与数据之间的交互呢？无非是面向过程的那一套东西，取元素，设置属性值，取元素，获取属性值，等等。而Vue的响应式系统，实际底层也是做dom节点的操作，但是更高效。Vue将这部分操作，封装在内部的实现中，我们只需要简单操作，就能实现视图和数据之间的交互。</p>
+</blockquote>
+<blockquote>
+<p>在每个页面组件中，数据可以是提前定义好的页面既有字段，也可以是后端接口给出的数据对象。</p>
+</blockquote>
+<blockquote>
+<p>响应式背后的原理，其实就是运用了设计模式中的观察者模式，通过对data属性的监视，触发能够更新视图数据的watcher，并且进行dom的渲染。</p>
+</blockquote>
+<blockquote>
+<p>响应式的好处，就是解耦视图和模型，我们不用去关注他们之间具体如何的联动和变化，我们只需要进行数据层面的操控，而由响应式系统，替我们完成视图层面的变化。</p>
+</blockquote>
+<h3 id="2、vue-cli"><a href="#2、vue-cli" class="headerlink" title="2、vue-cli"></a>2、vue-cli</h3><blockquote>
+<p>vue-cli是有Vue提供的一个官方cli，专门为单页面应用快速搭建繁杂的脚手架。它是用于自动生成vue.js+webpack的项目模板</p>
+</blockquote>
+<blockquote>
+<p>它暴露了一个可以自定义webpack配置的接口，我们可以在它的基础上，灵活配置我们项目需要的webpack配置，比如模块引入，样式预处理，热更新，开发模式的代理，等等。</p>
+</blockquote>
+<h3 id="3、vue-router"><a href="#3、vue-router" class="headerlink" title="3、vue-router"></a>3、vue-router</h3><blockquote>
+<p>vue-router实际上就是前端路由控制系统，其原理是通过html5的history API或者hash模式，实现单页应用内部功能模块的页面切换，即不刷新，便能改变地址，并且改变页面展示模块。</p>
+</blockquote>
+<blockquote>
+<p>前端打包输出的文件，其实就只有一个index.html，整个系统都是单页，因此页面之间的切换，包括返回，效率和性能都会很高，其实就是路由系统在控制，根据地址的字段映射，展示对应的页面组件，实际上，都是在一个页面上发生的。</p>
+</blockquote>
+<h3 id="4、axios"><a href="#4、axios" class="headerlink" title="4、axios"></a>4、axios</h3><blockquote>
+<p>axios是一个基于promise的http库，它适用于浏览器和node.js中,在vue全家桶中，作为ajax请求的代替，简单说，就是发送http请求的，它支持请求和响应的拦截，这个特性我们可以进行登录拦截，报错收集等统一的处理，还能够对数据进行统一的改造，使的前端代码逻辑变得清晰简单。</p>
+</blockquote>
+<blockquote>
+<p>一般来说，在我们实际项目的请求中，为了安全性，统一使用的post，而Post请求，后端默认的处理，应该就是表单提交formdata的格式，即content-type就是application/x-www-form-urlencoded，但是axios默认的application/json，因此如果直接传递，不做处理，服务器会报500的错，所以我们正常需要使用qs这个库，来对json形式的数据，进行序列化，也就是类似a=b&amp;b=c的格式，才能正常完成请求交互。</p>
+</blockquote>
+<h3 id="5、vuex"><a href="#5、vuex" class="headerlink" title="5、vuex"></a>5、vuex</h3><blockquote>
+<p>vuex是vue项目的状态管理工具，所谓状态管理，其实就是对于一些全局的数据，状态，进行统一的获取，更改，异步等操作。处于一种可预测的变化中。比如，用户登录状态，更新一处，多处联动信息的变化。方便全局数据的管理。</p>
+</blockquote>
+<blockquote>
+<p>另外我看项目中，使用到了vuex-persistedstate这样的一个插件，其实这个插件是用来对Vuex在内存中的数据，进行持久化的，项目中通过将Vuex中的数据，存入sessionStorage，来进行持久化，防止页面在刷新的时候，数据丢失的问题。sessionStorage的持久化比较折中，其生命周期只存在于这一次打开的浏览器中，关闭浏览器，则会清除。</p>
+</blockquote>
+<h3 id="6、ant-design-vue"><a href="#6、ant-design-vue" class="headerlink" title="6、ant-design-vue"></a>6、ant-design-vue</h3><blockquote>
+<p>ant-design-vue是基于vue开发的一个UI框架。</p>
+</blockquote>
+<blockquote>
+<p>一般来说，中后台的系统，其UI样式和功能交互，几乎趋于统一，所以，这个利于使用UI框架来进行快速的页面构建，很多页面组件，如下拉框，表格，弹窗等，UI框架都提供了简便的引用方式，而且扩展性强。</p>
+</blockquote>
+<blockquote>
+<p>而对于项目中大屏的前端页面，用于前端定制话的东西比较多，很多样式和交互，UI框架并不能提供，因此大多会使用手动编写，而对于常用的功能组件，可以进行选择引入，比如，pagination这个组件，用来进行列表的分页。</p>
+</blockquote>
+<h2 id="二、项目启动（开发模式和生产模式）"><a href="#二、项目启动（开发模式和生产模式）" class="headerlink" title="二、项目启动（开发模式和生产模式）"></a>二、项目启动（开发模式和生产模式）</h2><blockquote>
+<p>这部分主要给后端介绍下，项目的前端项目如何跑起来，如何构建生产环境的包。</p>
+</blockquote>
+<h3 id="1、node-js安装-npm"><a href="#1、node-js安装-npm" class="headerlink" title="1、node.js安装 npm"></a>1、node.js安装 npm</h3><blockquote>
+<p>目前前端项目构建，都是基于Node环境的，所以前提需要安装Node版本，版本是适当的高一点，比较牢靠，<a target="_blank" rel="noopener" href="https://nodejs.org/zh-cn/">这里</a>是Node下载的链接地址。</p>
+</blockquote>
+<blockquote>
+<p>npm 是前端项目的包管理工具，是开发和构建所用到的一切工具和类库的管理工具。现在Node安装会自动安装npm，环境变量也会自动配好，因此，我们只需要安装nodejs就可以了。</p>
+</blockquote>
+<h3 id="2、初始化项目"><a href="#2、初始化项目" class="headerlink" title="2、初始化项目"></a>2、初始化项目</h3><blockquote>
+<p>npm 是通过命令行操作的，所有操作，基于命令行。这里初始化，就不介绍，一个项目从无到有的生成，这里涉及vue-cli的相关知识，通常情况下，后端人员拉取前端项目源码的时候，项目已经初始化了。</p>
+</blockquote>
+<blockquote>
+<p>这里我要说的是，项目拉取之后，该怎么操作。首先，项目拉取下来之后，在package.json文件所在的目录下，打开命令行，输入npm install 也就是安装下项目依赖的所有包文件。</p>
+</blockquote>
+<blockquote>
+<p>等安装成功之后，输入npm run serve这是本地开发模式启动的命令，端口默认是8080。</p>
+</blockquote>
+<h3 id="3、package-json简单介绍"><a href="#3、package-json简单介绍" class="headerlink" title="3、package.json简单介绍"></a>3、package.json简单介绍</h3><blockquote>
+<p>package.json其实就是项目中，展示模块以及配置信息的文件，一般我们通过修改它来完成一些自定义的东西，主要介绍三个属性，是与我们开发密切相关的。</p>
+</blockquote>
+<blockquote>
+<p>scripts 就是配置项目运行或是打包等操作的属性。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;serve&quot;: &quot;vue-cli-service serve&quot;,</span><br><span class="line">    &quot;build&quot;: &quot;vue-cli-service build&quot;,</span><br><span class="line">    &quot;lint&quot;: &quot;vue-cli-service lint&quot;,</span><br><span class="line">    &quot;test:unit&quot;: &quot;vue-cli-service test:unit&quot;</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>dependencies 项目依赖包，也就是，不论是开发模式，还是生产模式，项目中必须依赖的包，都会在这里集成，我们通过npm install XX –save-dev来安装的包，就是集成到这个属性的配置中去的。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&quot;dependencies&quot;: &#123;</span><br><span class="line">    &quot;ant-design-vue&quot;: &quot;^1.3.5&quot;,</span><br><span class="line">    &quot;axios&quot;: &quot;^0.18.0&quot;,</span><br><span class="line">    &quot;echarts&quot;: &quot;^4.2.1&quot;,</span><br><span class="line">    &quot;jquery&quot;: &quot;^2.2.1&quot;,</span><br><span class="line">    &quot;mockjs&quot;: &quot;^1.0.1-beta3&quot;,</span><br><span class="line">    &quot;moment&quot;: &quot;^2.24.0&quot;,</span><br><span class="line">    &quot;qs&quot;: &quot;^6.6.0&quot;,</span><br><span class="line">    &quot;v-viewer&quot;: &quot;^1.4.0&quot;,</span><br><span class="line">    &quot;vue&quot;: &quot;^2.5.22&quot;,</span><br><span class="line">    &quot;vue-router&quot;: &quot;^3.0.1&quot;,</span><br><span class="line">    &quot;vuex&quot;: &quot;^3.0.1&quot;,</span><br><span class="line">    &quot;vuex-persistedstate&quot;: &quot;^2.5.4&quot;</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>devDependencies 顾名思义，这个属性就是开发环境专属的依赖包，比如，我们需要对代码中用到的样式预处理文件，通过对应的预处理器，去进行转化编译，形成生产环境可用的样式文件，那么，这个预处理工具，就适合集成到这个属性中去。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&quot;devDependencies&quot;: &#123;</span><br><span class="line">    &quot;@babel&#x2F;polyfill&quot;: &quot;^7.2.5&quot;,</span><br><span class="line">    &quot;@vue&#x2F;cli-plugin-babel&quot;: &quot;^3.4.0&quot;,</span><br><span class="line">    &quot;@vue&#x2F;cli-plugin-eslint&quot;: &quot;^3.4.0&quot;,</span><br><span class="line">    &quot;@vue&#x2F;cli-plugin-unit-mocha&quot;: &quot;^3.4.0&quot;,</span><br><span class="line">    &quot;@vue&#x2F;cli-service&quot;: &quot;^3.4.0&quot;,</span><br><span class="line">    &quot;@vue&#x2F;eslint-config-standard&quot;: &quot;^4.0.0&quot;,</span><br><span class="line">    &quot;@vue&#x2F;test-utils&quot;: &quot;^1.0.0-beta.20&quot;,</span><br><span class="line">    &quot;babel-eslint&quot;: &quot;^10.0.1&quot;,</span><br><span class="line">    &quot;chai&quot;: &quot;^4.1.2&quot;,</span><br><span class="line">    &quot;eslint&quot;: &quot;^5.8.0&quot;,</span><br><span class="line">    &quot;eslint-plugin-vue&quot;: &quot;^5.0.0&quot;,</span><br><span class="line">    &quot;less&quot;: &quot;^3.0.4&quot;,</span><br><span class="line">    &quot;less-loader&quot;: &quot;^4.1.0&quot;,</span><br><span class="line">    &quot;lint-staged&quot;: &quot;^8.1.0&quot;,</span><br><span class="line">    &quot;vue-image-swipe&quot;: &quot;^1.0.5&quot;,</span><br><span class="line">    &quot;vue-template-compiler&quot;: &quot;^2.5.21&quot;</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+<h3 id="4、开发模式相关配置"><a href="#4、开发模式相关配置" class="headerlink" title="4、开发模式相关配置"></a>4、开发模式相关配置</h3><blockquote>
+<p>开发环境的启动 是通过npm run serve来进行的，我们可以在package.json的scripts中的serve配置里，后面加上–open，这样，我们每次启动开发环境成功后，会自动打开浏览器。默认8080端口。</p>
+</blockquote>
+<blockquote>
+<p>另外需要注意的点是，后期在和后端接口进行交互的时候，实际上，直接调用，就属于跨域了，开发环境可以在vue.config.js(如果没有，则自己新建)文件中，进行相关配置：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">proxy: &#123;</span><br><span class="line">      &#39;&#x2F;tl-cyberbrain-govern&#39;: &#123;</span><br><span class="line">        target: &#39;http:&#x2F;&#x2F;59.203.208.71:8088&#39;,</span><br><span class="line">        changeOrigin: true,</span><br><span class="line">        logLevel: &#39;debug&#39;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>比如上面代码，是项目中的一个代理配置，/tl-cyberbrain-govern 就是要代理的地址前缀，target就是代理的目标，比方说，我们要想访问<a target="_blank" rel="noopener" href="http://59.203.208.71:8088/tl-cyberbrain-govern/api%EF%BC%8C%E9%82%A3%E4%B9%88%E5%81%9A%E5%87%BA%E5%A6%82%E4%B8%8A%E9%85%8D%E7%BD%AE%E4%B9%8B%E5%90%8E%EF%BC%8C%E6%88%91%E4%BB%AC%E5%8F%AA%E9%9C%80%E8%A6%81%E8%AE%BF%E9%97%AE/api%EF%BC%8C%E5%B0%B1%E8%83%BD%E5%A4%9F%E7%BB%95%E8%BF%87%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%EF%BC%8C%E6%8B%BF%E5%88%B0%E6%95%B0%E6%8D%AE%E4%BA%86%E3%80%82">http://59.203.208.71:8088/tl-cyberbrain-govern/api，那么做出如上配置之后，我们只需要访问/api，就能够绕过跨域问题，拿到数据了。</a></p>
+</blockquote>
+<h3 id="5、生产模式相关配置"><a href="#5、生产模式相关配置" class="headerlink" title="5、生产模式相关配置"></a>5、生产模式相关配置</h3><blockquote>
+<p>我们通过npm run build命令，来对开发好的前端代码，进行编译和打包，代码输出到项目目录的dist文件夹中，之后，由后端进行部署。</p>
+</blockquote>
+<blockquote>
+<p>其中有注意的地方，就是，如果前端项目所处的线上位置，相对于服务器根目录，前面有嵌套路径，那么，这个路径需要给前端，在vue.config.js里的publicPath中配置，否则静态资源会获取不到：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">publicPath: process.env.NODE_ENV &#x3D;&#x3D;&#x3D; &quot;production&quot; ? &quot;&#x2F;path&quot; : &quot;&#x2F;&quot;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>process.env.NODE_ENV是Node中，展示当前环境的变量，如果是生产环境，那么，所有静态资源的引用路径，在打包之后，前面都会加上设置的对应的路径，与线上环境一致。</p>
+</blockquote>
+<h2 id="三、项目中的一些建议"><a href="#三、项目中的一些建议" class="headerlink" title="三、项目中的一些建议"></a>三、项目中的一些建议</h2><blockquote>
+<p>这部分，我来简单讲下，对于项目中的一些做法和建议</p>
+</blockquote>
+<h3 id="接口调用应该和页面代码进行解耦"><a href="#接口调用应该和页面代码进行解耦" class="headerlink" title="接口调用应该和页面代码进行解耦"></a>接口调用应该和页面代码进行解耦</h3><blockquote>
+<p>项目中的数据请求，每一个都是直接写在页面中的，按照经验来说，之前我有遇到过这样一种情况，后端接口服务变化，比如地址变了，端口变了，甚至接口字段，请求方式，传参方式都会变动，那如果直接写在页面中，后期维护和更改，会比较麻烦，得一处一处的去修改。</p>
+</blockquote>
+<blockquote>
+<p>建议是，单独将每个模块的接口部分，单独拎出来，用一个api文件夹包括，这样，我们在对应的模块，只需引入对应的api文件。api文件夹里，其实就是各种请求的接口。这样统一，能方便后期接口的管理。</p>
+</blockquote>
+<h3 id="vuex状态管理应该进行模块解耦"><a href="#vuex状态管理应该进行模块解耦" class="headerlink" title="vuex状态管理应该进行模块解耦"></a>vuex状态管理应该进行模块解耦</h3><blockquote>
+<p>目前项目中，使用到vuex状态管理的，不太多，不知道后期项目，会不会越来越庞大，如果越来越庞大了，现在这种，所有模块都糅杂到一个store中的方式，也不太合适，vuex支持按模块的引入，针对后期模块多的情况，可以按模块划分，这样分层更清晰。</p>
+</blockquote>
+<blockquote>
+<p>另外，建议对mutation单独做一层type的映射，降低耦合性，打个比方：</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//mutation-types.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> SET_USER_INFO = <span class="string">&#x27;setUserInfo&#x27;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//mutations.js</span></span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> types <span class="keyword">from</span> <span class="string">&#x27;./mutation-types&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    [types.SET_USER_INFO](state, userInfo) &#123;</span><br><span class="line">        state.userInfo = userInfo;</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这样如果setUserInfo这个Mutation需要做变化了的话，我们只需要修改mutation-type就可以了，不用去每个用到该Mutation的地方去依次修改名称。进一步提高可维护性。</p>
+</blockquote>
+<h3 id="适度进行一些变量的优化"><a href="#适度进行一些变量的优化" class="headerlink" title="适度进行一些变量的优化"></a>适度进行一些变量的优化</h3><blockquote>
+<p>目前项目里在页面中访问vuex store里面的state的时候，是使用this.$store.state.xx来进行获取，而且每个地方用到了，都得重新写一遍，建议后期可以优化一下，避免掉过长的读取链，比如，Vuex框架中提供了一些API来简化我们的数据操作，比如获取state，就用mapState,获取getter，就用mapGetters等等。</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <!-- 本文结束标记 -->
+<div>
+  
+    <div>
+  
+    <div style="text-align:center;color:#ccc;font-size:16px;">-------------&nbsp;本文结束&nbsp;<i class="fa fa-globe"></i>&nbsp;感谢你的阅读&nbsp;-------------</div>
+  
+</div>
+
+  
+</div>
+<!-- 本文结束标记END -->
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Vue/" rel="tag"><i class="fa fa-tag"></i> Vue</a>
+          
+            <a href="/tags/%E5%89%8D%E7%AB%AF%E6%8A%80%E6%9C%AF%E6%A0%88/" rel="tag"><i class="fa fa-tag"></i> 前端技术栈</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/25/%E6%B5%8F%E8%A7%88%E5%99%A8%E8%B0%83%E7%94%A8%E6%91%84%E5%83%8F%E5%A4%B4%E7%94%9F%E6%88%90%E7%85%A7%E7%89%87/" rel="next" title="浏览器调用摄像头生成照片">
+                <i class="fa fa-chevron-left"></i> 浏览器调用摄像头生成照片
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/20/%E4%BA%A4%E5%8F%89%E8%A7%82%E5%AF%9F%E8%80%85IntersectionObserver%E4%BB%8B%E7%BB%8D/" rel="prev" title="交叉观察者IntersectionObserver介绍">
+                交叉观察者IntersectionObserver介绍 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/bettermu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/u/3199082000?refer_flag=1001030101_&is_all=1" target="_blank" title="Weibo">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.cnblogs.com/bettermu/" target="_blank" title="博客园">
+                      
+                        <i class="fa fa-fw fa-rss"></i>博客园</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/mu-xiao-feng-45-99/activities" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%93%9C%E9%99%B5%E5%9F%8E%E5%B8%82%E8%B6%85%E8%84%91%E5%89%8D%E7%AB%AF%E6%8A%80%E6%9C%AF%E6%A0%88%E6%A2%B3%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">铜陵城市超脑前端技术栈梳理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%8A%80%E6%9C%AF%E6%A0%88%E6%A2%B3%E7%90%86"><span class="nav-number">1.1.</span> <span class="nav-text">一、技术栈梳理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81VUE"><span class="nav-number">1.1.1.</span> <span class="nav-text">1、VUE</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%84%E4%BB%B6%E5%8C%96"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">组件化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#virtual-dom"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">virtual dom</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%93%8D%E5%BA%94%E5%BC%8F"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">响应式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81vue-cli"><span class="nav-number">1.1.2.</span> <span class="nav-text">2、vue-cli</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81vue-router"><span class="nav-number">1.1.3.</span> <span class="nav-text">3、vue-router</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81axios"><span class="nav-number">1.1.4.</span> <span class="nav-text">4、axios</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81vuex"><span class="nav-number">1.1.5.</span> <span class="nav-text">5、vuex</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6%E3%80%81ant-design-vue"><span class="nav-number">1.1.6.</span> <span class="nav-text">6、ant-design-vue</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E9%A1%B9%E7%9B%AE%E5%90%AF%E5%8A%A8%EF%BC%88%E5%BC%80%E5%8F%91%E6%A8%A1%E5%BC%8F%E5%92%8C%E7%94%9F%E4%BA%A7%E6%A8%A1%E5%BC%8F%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">二、项目启动（开发模式和生产模式）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81node-js%E5%AE%89%E8%A3%85-npm"><span class="nav-number">1.2.1.</span> <span class="nav-text">1、node.js安装 npm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%B9%E7%9B%AE"><span class="nav-number">1.2.2.</span> <span class="nav-text">2、初始化项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81package-json%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.2.3.</span> <span class="nav-text">3、package.json简单介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E5%BC%80%E5%8F%91%E6%A8%A1%E5%BC%8F%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE"><span class="nav-number">1.2.4.</span> <span class="nav-text">4、开发模式相关配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81%E7%94%9F%E4%BA%A7%E6%A8%A1%E5%BC%8F%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE"><span class="nav-number">1.2.5.</span> <span class="nav-text">5、生产模式相关配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E9%A1%B9%E7%9B%AE%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E5%BB%BA%E8%AE%AE"><span class="nav-number">1.3.</span> <span class="nav-text">三、项目中的一些建议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8%E5%BA%94%E8%AF%A5%E5%92%8C%E9%A1%B5%E9%9D%A2%E4%BB%A3%E7%A0%81%E8%BF%9B%E8%A1%8C%E8%A7%A3%E8%80%A6"><span class="nav-number">1.3.1.</span> <span class="nav-text">接口调用应该和页面代码进行解耦</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vuex%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E5%BA%94%E8%AF%A5%E8%BF%9B%E8%A1%8C%E6%A8%A1%E5%9D%97%E8%A7%A3%E8%80%A6"><span class="nav-number">1.3.2.</span> <span class="nav-text">vuex状态管理应该进行模块解耦</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%82%E5%BA%A6%E8%BF%9B%E8%A1%8C%E4%B8%80%E4%BA%9B%E5%8F%98%E9%87%8F%E7%9A%84%E4%BC%98%E5%8C%96"><span class="nav-number">1.3.3.</span> <span class="nav-text">适度进行一些变量的优化</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <!--<div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">better沐小泡</span>
+
+  
+</div>
+-->
+
+<!-- 
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+-->
+
+<!-- 新增访客统计代码 -->
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-balance-scale"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">better沐小泡</span>
+</div>
+
+<div class="busuanzi-count">
+    <script async="" src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      访问用户： <span class="busuanzi-value" id="busuanzi_value_site_uv"></span> 人
+    </span>
+    <div class="powered-by"></div>
+    <span class="site-uv">
+      <i class="fa fa-eye"></i>
+      访问次数： <span class="busuanzi-value" id="busuanzi_value_site_pv"></span> 次
+    </span>
+    <!-- 博客字数统计 -->
+    <span class="site-pv">
+      <i class="fa fa-pencil"></i>
+      博客全站共： <span class="post-count"></span> 字
+    </span>
+</div>
+<!-- 新增访客统计代码 END-->
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <!-- 页面点击小红心 -->
+  <script type="text/javascript" src="/js/src/love.js"></script>
+
+</body>
+</html>

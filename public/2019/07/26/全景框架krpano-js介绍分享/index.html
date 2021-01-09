@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="krpano.js,全景漫游," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="全景框架krpano.js介绍概览 一、全景vr概念 在2016年上半年的这个时候，VR、AR概念炒得很火。室内，室外景观等行业，均利用这波热潮，借全景的力来拓展自己的市场，我们旅游业务线当时也基于目前的需求，希望能让游客不出家门，只用浏览器，便能提前了解景点情况。打算做一套自己的全景旅游导览系统，这也就是我今天打算分享的由来。   全景漫游（英文：panorama）技术可以让体验者在全景图像构建">
+<meta property="og:type" content="article">
+<meta property="og:title" content="全景框架krpano.js介绍分享">
+<meta property="og:url" content="http://example.com/2019/07/26/%E5%85%A8%E6%99%AF%E6%A1%86%E6%9E%B6krpano-js%E4%BB%8B%E7%BB%8D%E5%88%86%E4%BA%AB/index.html">
+<meta property="og:site_name" content="不忘初心，砥砺前行">
+<meta property="og:description" content="全景框架krpano.js介绍概览 一、全景vr概念 在2016年上半年的这个时候，VR、AR概念炒得很火。室内，室外景观等行业，均利用这波热潮，借全景的力来拓展自己的市场，我们旅游业务线当时也基于目前的需求，希望能让游客不出家门，只用浏览器，便能提前了解景点情况。打算做一套自己的全景旅游导览系统，这也就是我今天打算分享的由来。   全景漫游（英文：panorama）技术可以让体验者在全景图像构建">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://github.com/bettermu/blog-picture-store/blob/master/20190719/13.png?raw=true">
+<meta property="og:image" content="https://github.com/bettermu/blog-picture-store/blob/master/20190719/1.png?raw=true">
+<meta property="og:image" content="https://github.com/bettermu/blog-picture-store/blob/master/20190719/3.png?raw=true">
+<meta property="og:image" content="https://github.com/bettermu/blog-picture-store/blob/master/20190719/2.png?raw=true">
+<meta property="og:image" content="https://github.com/bettermu/blog-picture-store/blob/master/20190719/4.png?raw=true">
+<meta property="og:image" content="https://github.com/bettermu/blog-picture-store/blob/master/20190719/8.png?raw=true">
+<meta property="og:image" content="https://github.com/bettermu/blog-picture-store/blob/master/20190719/9.png?raw=true">
+<meta property="og:image" content="https://github.com/bettermu/blog-picture-store/blob/master/20190719/10.png?raw=true">
+<meta property="og:image" content="https://github.com/bettermu/blog-picture-store/blob/master/20190719/11.png?raw=true">
+<meta property="og:image" content="https://github.com/bettermu/blog-picture-store/blob/master/20190719/6.png?raw=true">
+<meta property="og:image" content="https://github.com/bettermu/blog-picture-store/blob/master/20190719/5.png?raw=true">
+<meta property="og:image" content="https://github.com/bettermu/blog-picture-store/blob/master/20190719/7.png?raw=true">
+<meta property="article:published_time" content="2019-07-26T15:05:23.000Z">
+<meta property="article:modified_time" content="2019-07-26T15:06:21.755Z">
+<meta property="article:author" content="better沐小泡">
+<meta property="article:tag" content="krpano.js">
+<meta property="article:tag" content="全景漫游">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/bettermu/blog-picture-store/blob/master/20190719/13.png?raw=true">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2019/07/26/全景框架krpano-js介绍分享/"/>
+
+
+
+
+
+  <title>全景框架krpano.js介绍分享 | 不忘初心，砥砺前行</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a target="_blank" rel="noopener" href="https://github.com/bettermu" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">不忘初心，砥砺前行</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">前端攻城狮</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-project">
+          <a href="/project/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tasks"></i> <br />
+            
+            项目
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/07/26/%E5%85%A8%E6%99%AF%E6%A1%86%E6%9E%B6krpano-js%E4%BB%8B%E7%BB%8D%E5%88%86%E4%BA%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不忘初心，砥砺前行">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">全景框架krpano.js介绍分享</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-26T23:05:23+08:00">
+                2019-07-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/krpano-js/" itemprop="url" rel="index">
+                    <span itemprop="name">krpano.js</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/krpano-js/%E5%85%A8%E6%99%AF%E6%BC%AB%E6%B8%B8/" itemprop="url" rel="index">
+                    <span itemprop="name">全景漫游</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="全景框架krpano-js介绍"><a href="#全景框架krpano-js介绍" class="headerlink" title="全景框架krpano.js介绍"></a>全景框架krpano.js介绍</h1><h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><p><img src="https://github.com/bettermu/blog-picture-store/blob/master/20190719/13.png?raw=true"></p>
+<h2 id="一、全景vr概念"><a href="#一、全景vr概念" class="headerlink" title="一、全景vr概念"></a>一、全景vr概念</h2><blockquote>
+<p>在2016年上半年的这个时候，VR、AR概念炒得很火。室内，室外景观等行业，均利用这波热潮，借全景的力来拓展自己的市场，我们旅游业务线当时也基于目前的需求，希望能让游客不出家门，只用浏览器，便能提前了解景点情况。打算做一套自己的全景旅游导览系统，这也就是我今天打算分享的由来。</p>
+</blockquote>
+<blockquote>
+<p>全景漫游（英文：panorama）技术可以让体验者在全景图像构建的全景空间里切换视角的浏览。它是通过拍摄全景图像，再采用计算机图形图像技术构建出全景空间，让使用者能用控制浏览的方向，或左或右、或上或下观看物体或场景，仿佛身临其境一般。与传统的3D建模相比，全景漫游技术制作简单，数据量小，系统消耗低，且更有真实感。</p>
+</blockquote>
+<h2 id="二、需求分析和解决方案"><a href="#二、需求分析和解决方案" class="headerlink" title="二、需求分析和解决方案"></a>二、需求分析和解决方案</h2><blockquote>
+<p>有了想做一个自己的全景系统这样一个想法之后，就得想办法如何去实现它，那么首先，我们参考了业界流行的解决方案，比方说，在当时很流行的<a target="_blank" rel="noopener" href="https://720yun.com/">720云</a>等全景制作平台，当时刚打开他们的网站，确实被惊艳到了，原来浏览器可以展示这么酷炫的效果，下一秒就开始好奇，他们是如何做到的。虽然他们提供了一套的制作流程，但是我们的需求是自己搞一个高度定制化的全景系统。所以职业习惯，下意识的我便按下了F12，找到source面板，在一堆文件夹下面开始找，终于给我找到了： </p>
+</blockquote>
+<p><img src="https://github.com/bettermu/blog-picture-store/blob/master/20190719/1.png?raw=true"></p>
+<blockquote>
+<p>上图可以看到注释……原来他们用的是krpano.js 顺藤摸瓜便打开了<a target="_blank" rel="noopener" href="https://krpano.com/">krpano.js的官网</a>,打开后，刚开始一脸懵逼，全部都是英文，原来开发框架的是德国人，关键点是，框架收费的，129英镑，人民币1000多，但是项目组任性出钱买了下来（因为没有买版权，做出来的场景是带满屏的水印的，但其实到最近这一两年我们才发现，竟然有注册机可以破解版权了，莫名感觉有点亏了）</p>
+</blockquote>
+<blockquote>
+<p>2016年当时其实还没有krpano相关的中文文档可以查阅，唯一的文档就是全英文的官网，而且，将近2000的api，可以说是巨量的，当时也是边做边学。不像现在，入门都有中文文档，有个<a target="_blank" rel="noopener" href="http://www.krpano360.com/">krpano中文网</a>，个人维护的，质量不错，入门足够。</p>
+</blockquote>
+<h2 id="三、krpano-js简介"><a href="#三、krpano-js简介" class="headerlink" title="三、krpano.js简介"></a>三、krpano.js简介</h2><blockquote>
+<p>krpano是一款全景漫游制作软件和工具。其具有以下特点：</p>
+</blockquote>
+<ul>
+<li>高度灵活、性能卓越的轻量化全景漫游浏览器。</li>
+<li>兼容HTML5和Flash，支持Webgl下的WebVR展示。</li>
+<li>使用专用的krpano xml代码编写全景漫游，可开发出高度定制化的项目，也可利用krpano工具开发在线全景制作及展示平台。</li>
+<li>支持多种类型的全景图以及全景视频和环物全景。</li>
+<li>支持多种投影模式。</li>
+<li>同时提供简单高效的批处理方式，可在无需代码干预下迅速生成一个基本功能兼备的全景漫游项目。</li>
+</ul>
+<h2 id="四、原理"><a href="#四、原理" class="headerlink" title="四、原理"></a>四、原理</h2><blockquote>
+<p>其原理主要就是利用全景图制作工具，将一张全景图，制作成6张图片切片，这6张图片分别对应六面体的前后左右上下，六个方位，人的视角在六面体的中间位置，四周形成720°球面坐标系。  </p>
+</blockquote>
+<p><img src="https://github.com/bettermu/blog-picture-store/blob/master/20190719/3.png?raw=true"></p>
+<blockquote>
+<p>切片的特殊地方就在于边缘的虚化效果，使得过渡非常自然，如果我们把切片替换成未处理的图片，那么会出现如下的效果，至少能看的出来，其实就是图片拼接出来的六面体而已：</p>
+</blockquote>
+<p><img src="https://github.com/bettermu/blog-picture-store/blob/master/20190719/2.png?raw=true"></p>
+<h2 id="五、应用"><a href="#五、应用" class="headerlink" title="五、应用"></a>五、应用</h2><blockquote>
+<p>那么应用的话呢，主要看你需求了，单纯的展示，就很简单，去业界主流的全景制作平台，或者，使用krpano自己的制作工具来进行制作。如果是想定制化一个系统或者产品，那就得深入krpano的文档进行学习了。</p>
+</blockquote>
+<h3 id="一、单纯的展示"><a href="#一、单纯的展示" class="headerlink" title="一、单纯的展示"></a>一、单纯的展示</h3><blockquote>
+<p>业界的全景制作平台流程就不说了，基本都是傻瓜式的操作，下面给大家简单介绍一下，官网下载的包里都有些什么东西，首先放一张图,大概看下结构：</p>
+</blockquote>
+<p><img src="https://github.com/bettermu/blog-picture-store/blob/master/20190719/4.png?raw=true"></p>
+<h4 id="examples文件夹"><a href="#examples文件夹" class="headerlink" title="examples文件夹"></a>examples文件夹</h4><blockquote>
+<p>这是krpano的案例文件夹(1.19的examples文件夹在viewer文件夹下)，这些案例都是学习krpano代码的很好的素材。  </p>
+</blockquote>
+<p><img src="https://github.com/bettermu/blog-picture-store/blob/master/20190719/8.png?raw=true"></p>
+<h4 id="templates文件夹"><a href="#templates文件夹" class="headerlink" title="templates文件夹"></a>templates文件夹</h4><blockquote>
+<p>官方一系列模版所在的文件夹，包括了图片、xml、html以及相关配置文件等。通过对这里的了解和修改，我们可以做出自己的皮肤模版，然后一键生成，实现批量的工作流。不过正常情况下，我们通过批量处理工具，会自动生成，不需要从这里拷贝。</p>
+</blockquote>
+<p><img src="https://github.com/bettermu/blog-picture-store/blob/master/20190719/9.png?raw=true"></p>
+<h4 id="viewer文件夹"><a href="#viewer文件夹" class="headerlink" title="viewer文件夹"></a>viewer文件夹</h4><blockquote>
+<p>krpano 下载包的官方插件、引擎、案例的存放位置，同时也是让案例文件夹能够正确显示的 viewer 所在的位置。其中plugins是当前版本的所有官方插件；examples是官方提供的案例。 </p>
+</blockquote>
+<p><img src="https://github.com/bettermu/blog-picture-store/blob/master/20190719/10.png?raw=true"></p>
+<h4 id="droplet-bat-文件"><a href="#droplet-bat-文件" class="headerlink" title="droplet.bat 文件"></a>droplet.bat 文件</h4><blockquote>
+<p>Krpano Droplets 是krpano命令行工具加上配置文件config的一个快捷方式。droplets使用方式非常简单，将文件（通常是图片或者xml等文件）直接拖放在droplet图标上松开即可。</p>
+</blockquote>
+<p><img src="https://github.com/bettermu/blog-picture-store/blob/master/20190719/11.png?raw=true"></p>
+<ul>
+<li>MAKE PANO开头的，是只制作全景图片，并不整合成漫游文件夹</li>
+<li>MAKE VTOUR开头的，是制作全景图片，并且将他们整合到一个虚拟漫游中</li>
+<li>我们一般常用带有MULTIRES的处理文件，因为这样会生成所有类型的全景图像，而NORMAL只能生成360°的全景图像</li>
+</ul>
+<h4 id="krpano-Tools-exe"><a href="#krpano-Tools-exe" class="headerlink" title="krpano Tools.exe"></a>krpano Tools.exe</h4><blockquote>
+<p>用来加密保护全景项目的可视化工具，需要注册才可以使用  </p>
+</blockquote>
+<p><img src="https://github.com/bettermu/blog-picture-store/blob/master/20190719/6.png?raw=true"></p>
+<h4 id="krpano-Testing-Server"><a href="#krpano-Testing-Server" class="headerlink" title="krpano Testing Server"></a>krpano Testing Server</h4><blockquote>
+<p>krpano 自带的静态文件本地服务环境，使用它可以路过本地文件案例限制来查看 Flash 与 HTML5 效果，。我们如果想要本地查看效果的时候，需要启动它，然后再打开对应的案例的html文件。  </p>
+</blockquote>
+<p><img src="https://github.com/bettermu/blog-picture-store/blob/master/20190719/5.png?raw=true"></p>
+<h4 id="生成文件说明"><a href="#生成文件说明" class="headerlink" title="生成文件说明"></a>生成文件说明</h4><blockquote>
+<p>通过使用上述的droplet.bat文件，也就是将全景图拖到droplet.bat文件上面，会打开控制台，等程序跑完，就会出现一个vtour文件夹，文件夹内容如下：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">vtour&#x2F;</span><br><span class="line">| -- panos&#x2F;             #存放全景切片图片的文件夹</span><br><span class="line">| -- skin&#x2F;              #存放皮肤相关文件</span><br><span class="line">| -- plugins&#x2F;           #用来存放插件</span><br><span class="line">| -- tour.swf           #krpano flash viewer</span><br><span class="line">| -- tour.js            #krpano HTML5 viewer</span><br><span class="line">| -- tour.xml           #生成全景的相关配置</span><br><span class="line">| -- tour.html          #用来浏览全景的页面，需要本地服务环境</span><br><span class="line">| -- tour_editor.html   #添加热点（hotspot）与初始化视角设置的编辑器</span><br><span class="line">| -- tour_testingserver.exe #windows系统中打开测试服务器并打开html文件进行本地浏览。</span><br><span class="line">| -- tour_testingserver_macos #mac系统中打开测试服务器并打开html文件进行本地浏览。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="二、自定义"><a href="#二、自定义" class="headerlink" title="二、自定义"></a>二、自定义</h3><blockquote>
+<p>说是自定义，其实代码结构和工具生成的方式一样，只不过形式上有所区别，下面，工具生成的代码结构，给大家讲解下，它究竟是如何运行的。</p>
+</blockquote>
+<h4 id="1、代码结构"><a href="#1、代码结构" class="headerlink" title="1、代码结构"></a>1、代码结构</h4><h5 id="tour-html"><a href="#tour-html" class="headerlink" title="tour.html"></a>tour.html</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;pano&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;tour.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line">    embedpano(&#123;</span><br><span class="line"><span class="javascript">        swf: <span class="string">&quot;tour.swf&quot;</span>, <span class="comment">//有则表示加载flash引擎，如果设置html5:only则不需要该值</span></span></span><br><span class="line"><span class="javascript">        xml: <span class="string">&quot;tour.xml&quot;</span>, <span class="comment">//启动时的配置文件</span></span></span><br><span class="line"><span class="javascript">        target: <span class="string">&quot;pano&quot;</span>, <span class="comment">//要渲染到的目标容器ID</span></span></span><br><span class="line"><span class="javascript">        html5: <span class="string">&quot;only&quot;</span>, <span class="comment">//如果有需要用到flash，可设置为auto</span></span></span><br><span class="line"><span class="javascript">        <span class="comment">//id: &quot;krpanoSWFObject&quot;, //默认的krpano对象，每一个viewer对应唯一id，与JS交互时要用到</span></span></span><br><span class="line"><span class="javascript">        mobilescale: <span class="number">1.0</span>, <span class="comment">//移动设备缩放，1表示不缩放，默认0.5</span></span></span><br><span class="line"><span class="javascript">        passQueryParameters: <span class="literal">false</span> <span class="comment">//是否接受URL传参，例如：tour.html?html5=only&amp;startscene=scene2</span></span></span><br><span class="line">    &#125;);</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="tour-xml"><a href="#tour-xml" class="headerlink" title="tour.xml"></a>tour.xml</h5><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">krpano</span> <span class="attr">version</span>=<span class="string">&quot;1.19&quot;</span>     //版本号</span></span><br><span class="line"><span class="tag">        <span class="attr">onstart</span>=<span class="string">&quot;&quot;</span>         //进入漫游时，<span class="attr">xml</span>加载和解析后执行的动作</span></span><br><span class="line"><span class="tag">        <span class="attr">basedir</span>=<span class="string">&quot;%FIRSTXML%&quot;</span> //设置程序根目录</span></span><br><span class="line"><span class="tag">        <span class="attr">bgcolor</span>=<span class="string">&quot;&quot;</span>      //全景播放器的背景色，不设置则为透明</span></span><br><span class="line"><span class="tag">        <span class="attr">colorcorrection</span>=<span class="string">&quot;default&quot;</span> //改变<span class="attr">Flashplayer</span> <span class="attr">10</span>的色彩修正设置(<span class="attr">Flash</span> <span class="attr">only</span>)　可选的值：<span class="attr">default</span>、<span class="attr">on</span>、<span class="attr">off</span></span></span><br><span class="line"><span class="tag">        <span class="attr">logkey</span>=<span class="string">&quot;true&quot;</span>     //当为<span class="attr">Ture</span>时，按<span class="attr">O</span>可查看<span class="attr">log</span>日志</span></span><br><span class="line"><span class="tag">        <span class="attr">strict</span>=<span class="string">&quot;false&quot;</span>            //严格代码模式</span></span><br><span class="line"><span class="tag">        <span class="attr">showerrors</span>=<span class="string">&quot;true&quot;</span>  //是否输出错误信息</span></span><br><span class="line"><span class="tag">        <span class="attr">debugmode</span>=<span class="string">&quot;false&quot;</span>  //当为<span class="attr">True</span>时，显示来自插件中的<span class="attr">trace</span>(<span class="attr">0</span>,<span class="attr">text</span>)中的<span class="attr">text</span>信息</span></span><br><span class="line"><span class="tag">    &gt;</span></span><br><span class="line">    ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">krpano</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>krpano作为XML文件唯一根元素，必须设置！</p>
+</blockquote>
+<h5 id="XML文件配置"><a href="#XML文件配置" class="headerlink" title="XML文件配置"></a>XML文件配置</h5><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">krpano</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">include</span>&gt;</span>  //xml文件的相互引用，比如皮肤xml等</span><br><span class="line">    <span class="tag">&lt;<span class="name">preview</span>&gt;</span> //预览，加载预览图，渲染优化</span><br><span class="line">    <span class="tag">&lt;<span class="name">image</span>&gt;</span> //六个方位的切片图</span><br><span class="line">    <span class="tag">&lt;<span class="name">view</span>&gt;</span>  //具体场景的视图，对应六面体的六个方位</span><br><span class="line">    <span class="tag">&lt;<span class="name">autorotate</span>&gt;</span>  //场景自动旋转</span><br><span class="line">    <span class="tag">&lt;<span class="name">plugin</span>&gt;</span>  //插件 背景音乐，陀螺仪等</span><br><span class="line">    <span class="tag">&lt;<span class="name">layer</span>&gt;</span>    //图层，比如控制器</span><br><span class="line">    <span class="tag">&lt;<span class="name">hotspot</span>&gt;</span>  //切换场景热点</span><br><span class="line">    <span class="tag">&lt;<span class="name">events</span>&gt;</span> //事件响应</span><br><span class="line">    <span class="tag">&lt;<span class="name">action</span>&gt;</span> //交互指令</span><br><span class="line">    <span class="tag">&lt;<span class="name">scene</span>&gt;</span> //场景</span><br><span class="line"><span class="tag">&lt;/<span class="name">krpano</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="2、渲染处理"><a href="#2、渲染处理" class="headerlink" title="2、渲染处理"></a>2、渲染处理</h4><blockquote>
+<p>a、首先，我们需要根据UI设计图，参照文档API，来对xml模板进行修改处理，来达到我们自己想要的那种效果。</p>
+</blockquote>
+<blockquote>
+<p>b、然后呢，我们会将主xml和公用的xml，放到后台java目录webapp下面的resource文件夹，这样，我们在js读取的时候，只需要采用相对路径即可</p>
+</blockquote>
+<blockquote>
+<p>c、动态场景所需要的对应的xml，只能由后台生成，后台有一套场景模板，和一套对xml进行节点操作的处理逻辑，然后将xml路径以正常的ajax请求返回给前端，前端进行场景加载等操作</p>
+</blockquote>
+<blockquote>
+<p>krpano渲染的方式如下，可以看到，主要的就是tour.xml文件，其他诸如插件，皮肤之类的，也是xml，不过将会被include标签引入tour.xml</p>
+</blockquote>
+<p><img src="https://github.com/bettermu/blog-picture-store/blob/master/20190719/7.png?raw=true"></p>
+<h4 id="3、交互处理"><a href="#3、交互处理" class="headerlink" title="3、交互处理"></a>3、交互处理</h4><blockquote>
+<p>既然是浏览器展示型的框架，那么交互一定是不能少了，你们一定很好奇，那像上面那样说的，krpano通过xml配置进行渲染，而js脚本又是单独的，那么如何去完成统一的交互呢？说白了，也就是说，如何去完成krpano和js脚本之间的通信？其实有几种方式：</p>
+</blockquote>
+<h5 id="krpano内置指令"><a href="#krpano内置指令" class="headerlink" title="krpano内置指令"></a>krpano内置指令</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;layer name&#x3D;&quot;skin_btn_comment&quot;  onclick&#x3D;&quot;skin_add_comment()&quot; &#x2F;&gt;</span><br><span class="line"></span><br><span class="line">&lt;action name&#x3D;&quot;skin_add_comment&quot;&gt;</span><br><span class="line">    set(hotspot[get(hotspotName)].width, &#39;30px&#39;);</span><br><span class="line">    set(hotspot[get(hotspotName)].height, &#39;30px&#39;);</span><br><span class="line">&lt;&#x2F;action&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如上代码，layer是krpano内置的图层标签，类似于地图交互上的覆盖物，action呢之前也提了，表示声明一个交互指令，layer上可以绑定各种各样的方法，具体可以参考官网文档，这个方法的值，就是action标签name值的函数调用，当我们点击这个layer的时候，action包裹的各种操作就会被触发，action里包裹的便是krpano的内置语法处理。</p>
+</blockquote>
+<h5 id="call的方式"><a href="#call的方式" class="headerlink" title="call的方式"></a>call的方式</h5><blockquote>
+<p>所谓的call方式，其实和js里call,apply的语义是类似的，也就是借调，这里的call，就是指krpano和js脚本互相调用。</p>
+</blockquote>
+<blockquote>
+<p>其实大部分的场景，我们是需要这样的一种通信方式的，比如参数传递，数据存储之类的，很多时候，krpano的操作，需要用到js脚本的变量，而自定义的页面元素，js脚本又得调用krpano的指令。</p>
+</blockquote>
+<blockquote>
+<p>首先，我们来看下，krpano的xml中，如何调用js里声明的方法呢</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;xxx.js</span><br><span class="line"></span><br><span class="line">function callKrpano(id) &#123;</span><br><span class="line">    $(&quot;#vrHotspotID&quot;).val(id);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>我们在js脚本里声明一个方法，这个方法接受一个id的参数</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;xxx.xml</span><br><span class="line"></span><br><span class="line">&lt;action name&#x3D;&quot;skin_add_comment&quot;&gt;</span><br><span class="line">    js(callKrpano(get(hotspotName)));</span><br><span class="line">&lt;&#x2F;action&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>我们在xml里可以使用js(functionName)的方式，来调用js的方法</p>
+</blockquote>
+<blockquote>
+<p>然后，我们再看下，js里调用krpano的语法</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">function loadPano(xmlPath) &#123;</span><br><span class="line">    var krpano &#x3D; document.getElementById(&quot;krpanoSWFObject&quot;);</span><br><span class="line">    krpano.call(&#39;loadpano(&#39; + xmlPath + &#39;)&#39;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>我们可以通过dom操作，获取到krpano对象，krpano对象里集成了一个call方法，这个方法接收的是字符串形式的kapano内置语法段，注意，如果有js变量，我们需要进行拼接。比方说上面表示，就是js执行krpano的加载场景的这个指令。</p>
+</blockquote>
+<h2 id="六、结语"><a href="#六、结语" class="headerlink" title="六、结语"></a>六、结语</h2><blockquote>
+<p>其实今天时间不多，只能给大家讲个极其入门的大概，krpano这个全景框架，大家有兴趣可以去了解下，入门的话就去krpano中文网，如果想深入了解，建议还是慢慢看官网文档，全英文的，配合有道词典什么的，慢慢嗑。说实话，这东西过了这么长时间，没怎么用，很多东西都忘记了，只能到再用到的时候，再去边查边用，因为人的精力是有限的，合理的分配时间和精力，才是最重要的选择。</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <!-- 本文结束标记 -->
+<div>
+  
+    <div>
+  
+    <div style="text-align:center;color:#ccc;font-size:16px;">-------------&nbsp;本文结束&nbsp;<i class="fa fa-globe"></i>&nbsp;感谢你的阅读&nbsp;-------------</div>
+  
+</div>
+
+  
+</div>
+<!-- 本文结束标记END -->
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/krpano-js/" rel="tag"><i class="fa fa-tag"></i> krpano.js</a>
+          
+            <a href="/tags/%E5%85%A8%E6%99%AF%E6%BC%AB%E6%B8%B8/" rel="tag"><i class="fa fa-tag"></i> 全景漫游</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/07/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%B7%E5%BC%8F%E5%A4%84%E7%90%86/" rel="next" title="微信小程序富文本样式处理">
+                <i class="fa fa-chevron-left"></i> 微信小程序富文本样式处理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/25/%E6%B5%8F%E8%A7%88%E5%99%A8%E8%B0%83%E7%94%A8%E6%91%84%E5%83%8F%E5%A4%B4%E7%94%9F%E6%88%90%E7%85%A7%E7%89%87/" rel="prev" title="浏览器调用摄像头生成照片">
+                浏览器调用摄像头生成照片 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/bettermu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/u/3199082000?refer_flag=1001030101_&is_all=1" target="_blank" title="Weibo">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.cnblogs.com/bettermu/" target="_blank" title="博客园">
+                      
+                        <i class="fa fa-fw fa-rss"></i>博客园</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/mu-xiao-feng-45-99/activities" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%A8%E6%99%AF%E6%A1%86%E6%9E%B6krpano-js%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">全景框架krpano.js介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E8%A7%88"><span class="nav-number">1.1.</span> <span class="nav-text">概览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%85%A8%E6%99%AFvr%E6%A6%82%E5%BF%B5"><span class="nav-number">1.2.</span> <span class="nav-text">一、全景vr概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90%E5%92%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">1.3.</span> <span class="nav-text">二、需求分析和解决方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81krpano-js%E7%AE%80%E4%BB%8B"><span class="nav-number">1.4.</span> <span class="nav-text">三、krpano.js简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%8E%9F%E7%90%86"><span class="nav-number">1.5.</span> <span class="nav-text">四、原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E5%BA%94%E7%94%A8"><span class="nav-number">1.6.</span> <span class="nav-text">五、应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%8D%95%E7%BA%AF%E7%9A%84%E5%B1%95%E7%A4%BA"><span class="nav-number">1.6.1.</span> <span class="nav-text">一、单纯的展示</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#examples%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="nav-number">1.6.1.1.</span> <span class="nav-text">examples文件夹</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#templates%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="nav-number">1.6.1.2.</span> <span class="nav-text">templates文件夹</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#viewer%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="nav-number">1.6.1.3.</span> <span class="nav-text">viewer文件夹</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#droplet-bat-%E6%96%87%E4%BB%B6"><span class="nav-number">1.6.1.4.</span> <span class="nav-text">droplet.bat 文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#krpano-Tools-exe"><span class="nav-number">1.6.1.5.</span> <span class="nav-text">krpano Tools.exe</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#krpano-Testing-Server"><span class="nav-number">1.6.1.6.</span> <span class="nav-text">krpano Testing Server</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E6%96%87%E4%BB%B6%E8%AF%B4%E6%98%8E"><span class="nav-number">1.6.1.7.</span> <span class="nav-text">生成文件说明</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E8%87%AA%E5%AE%9A%E4%B9%89"><span class="nav-number">1.6.2.</span> <span class="nav-text">二、自定义</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E4%BB%A3%E7%A0%81%E7%BB%93%E6%9E%84"><span class="nav-number">1.6.2.1.</span> <span class="nav-text">1、代码结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#tour-html"><span class="nav-number">1.6.2.1.1.</span> <span class="nav-text">tour.html</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#tour-xml"><span class="nav-number">1.6.2.1.2.</span> <span class="nav-text">tour.xml</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#XML%E6%96%87%E4%BB%B6%E9%85%8D%E7%BD%AE"><span class="nav-number">1.6.2.1.3.</span> <span class="nav-text">XML文件配置</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E6%B8%B2%E6%9F%93%E5%A4%84%E7%90%86"><span class="nav-number">1.6.2.2.</span> <span class="nav-text">2、渲染处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81%E4%BA%A4%E4%BA%92%E5%A4%84%E7%90%86"><span class="nav-number">1.6.2.3.</span> <span class="nav-text">3、交互处理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#krpano%E5%86%85%E7%BD%AE%E6%8C%87%E4%BB%A4"><span class="nav-number">1.6.2.3.1.</span> <span class="nav-text">krpano内置指令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#call%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-number">1.6.2.3.2.</span> <span class="nav-text">call的方式</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E7%BB%93%E8%AF%AD"><span class="nav-number">1.7.</span> <span class="nav-text">六、结语</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <!--<div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">better沐小泡</span>
+
+  
+</div>
+-->
+
+<!-- 
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+-->
+
+<!-- 新增访客统计代码 -->
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-balance-scale"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">better沐小泡</span>
+</div>
+
+<div class="busuanzi-count">
+    <script async="" src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      访问用户： <span class="busuanzi-value" id="busuanzi_value_site_uv"></span> 人
+    </span>
+    <div class="powered-by"></div>
+    <span class="site-uv">
+      <i class="fa fa-eye"></i>
+      访问次数： <span class="busuanzi-value" id="busuanzi_value_site_pv"></span> 次
+    </span>
+    <!-- 博客字数统计 -->
+    <span class="site-pv">
+      <i class="fa fa-pencil"></i>
+      博客全站共： <span class="post-count"></span> 字
+    </span>
+</div>
+<!-- 新增访客统计代码 END-->
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <!-- 页面点击小红心 -->
+  <script type="text/javascript" src="/js/src/love.js"></script>
+
+</body>
+</html>

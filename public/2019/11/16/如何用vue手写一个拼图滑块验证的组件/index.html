@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="vue,components," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="如何用vue手写一个拼图滑块的组件想手写一个的原因 一般来说，网站只要涉及到用户相关的，登录一定会有需要输入验证码之类的功能，用来防止非人为操作的指令。大部分网站实现这部分都是会使用一张五颜六色的验证码图片，用户通过输入图中的文字或者字母，来通过登录请求。   还有一种方式，类似bilibili网站的验证操作一样，是通过拼图滑块拖动实现的验证：    第一眼看到它的时候，不由得会好奇，究竟是怎么实">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何用vue手写一个拼图滑块验证的组件">
+<meta property="og:url" content="http://example.com/2019/11/16/%E5%A6%82%E4%BD%95%E7%94%A8vue%E6%89%8B%E5%86%99%E4%B8%80%E4%B8%AA%E6%8B%BC%E5%9B%BE%E6%BB%91%E5%9D%97%E9%AA%8C%E8%AF%81%E7%9A%84%E7%BB%84%E4%BB%B6/index.html">
+<meta property="og:site_name" content="不忘初心，砥砺前行">
+<meta property="og:description" content="如何用vue手写一个拼图滑块的组件想手写一个的原因 一般来说，网站只要涉及到用户相关的，登录一定会有需要输入验证码之类的功能，用来防止非人为操作的指令。大部分网站实现这部分都是会使用一张五颜六色的验证码图片，用户通过输入图中的文字或者字母，来通过登录请求。   还有一种方式，类似bilibili网站的验证操作一样，是通过拼图滑块拖动实现的验证：    第一眼看到它的时候，不由得会好奇，究竟是怎么实">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://github.com/bettermu/blog-picture-store/blob/master/20191113/bilibili.png?raw=true">
+<meta property="og:image" content="https://github.com/bettermu/blog-picture-store/blob/master/20191113/2.png?raw=true">
+<meta property="og:image" content="https://github.com/bettermu/blog-picture-store/blob/master/20191113/1.gif?raw=true">
+<meta property="article:published_time" content="2019-11-16T10:50:58.000Z">
+<meta property="article:modified_time" content="2019-11-16T10:52:30.491Z">
+<meta property="article:author" content="better沐小泡">
+<meta property="article:tag" content="vue">
+<meta property="article:tag" content="components">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/bettermu/blog-picture-store/blob/master/20191113/bilibili.png?raw=true">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2019/11/16/如何用vue手写一个拼图滑块验证的组件/"/>
+
+
+
+
+
+  <title>如何用vue手写一个拼图滑块验证的组件 | 不忘初心，砥砺前行</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a target="_blank" rel="noopener" href="https://github.com/bettermu" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">不忘初心，砥砺前行</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">前端攻城狮</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-project">
+          <a href="/project/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tasks"></i> <br />
+            
+            项目
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/11/16/%E5%A6%82%E4%BD%95%E7%94%A8vue%E6%89%8B%E5%86%99%E4%B8%80%E4%B8%AA%E6%8B%BC%E5%9B%BE%E6%BB%91%E5%9D%97%E9%AA%8C%E8%AF%81%E7%9A%84%E7%BB%84%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不忘初心，砥砺前行">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">如何用vue手写一个拼图滑块验证的组件</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-16T18:50:58+08:00">
+                2019-11-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/vue/" itemprop="url" rel="index">
+                    <span itemprop="name">vue</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/vue/components/" itemprop="url" rel="index">
+                    <span itemprop="name">components</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="如何用vue手写一个拼图滑块的组件"><a href="#如何用vue手写一个拼图滑块的组件" class="headerlink" title="如何用vue手写一个拼图滑块的组件"></a>如何用vue手写一个拼图滑块的组件</h2><h3 id="想手写一个的原因"><a href="#想手写一个的原因" class="headerlink" title="想手写一个的原因"></a>想手写一个的原因</h3><blockquote>
+<p>一般来说，网站只要涉及到用户相关的，登录一定会有需要输入验证码之类的功能，用来防止非人为操作的指令。大部分网站实现这部分都是会使用一张五颜六色的验证码图片，用户通过输入图中的文字或者字母，来通过登录请求。</p>
+</blockquote>
+<blockquote>
+<p>还有一种方式，类似bilibili网站的验证操作一样，是通过拼图滑块拖动实现的验证：</p>
+</blockquote>
+<p><img src="https://github.com/bettermu/blog-picture-store/blob/master/20191113/bilibili.png?raw=true"></p>
+<blockquote>
+<p>第一眼看到它的时候，不由得会好奇，究竟是怎么实现的，这种拼图的样式和交互。期初我以为是两张图片，都是后台返回来的，然后再给个距离的合适值，前端只需要对比移动的距离值就可以判断。但后来仔细想想，这种方式还没有前端使用canvas绘图来的方便，但是具体怎么做，怎么实现，自己的脑子里暂时是没有具体的思路的。</p>
+</blockquote>
+<blockquote>
+<p>平时写业务遇到多的验证基本都是图片码验证的那种，太过平常的交互，秉着不断学习的心态，决定自己一定要手写一个这样的验证组件，写之前，有需要准备的，首先，去canvasAPI，温习一下相关的canvas知识：<a target="_blank" rel="noopener" href="https://www.canvasapi.cn/">传送门</a>，然后呢，我们需要对其中的一些功能，进行一些详细的思路分析，为我们开始手写，做好充分的准备。</p>
+</blockquote>
+<h3 id="整体的思路梳理"><a href="#整体的思路梳理" class="headerlink" title="整体的思路梳理"></a>整体的思路梳理</h3><blockquote>
+<p>大致看一下，想象一下具体的交互和流程，对其进行解耦：</p>
+</blockquote>
+<ul>
+<li><p>图片模块：</p>
+<ul>
+<li>底图的实现</li>
+<li>碎片的实现</li>
+</ul>
+</li>
+<li><p>滑动模块：</p>
+<ul>
+<li>按钮拖动的实现 </li>
+</ul>
+</li>
+<li><p>共享值：滑动距离</p>
+</li>
+<li><p>边界值计算</p>
+</li>
+<li><p>容差值计算</p>
+</li>
+</ul>
+<blockquote>
+<p>上面大概分析了下，整个组件分为两个部分，一个是图片模块，可以看出来，它有两个部分，一个是底图，另一个是碎片。其中涉及的值为移动的距离，而移动距离这个值可以通过第二个部分，滑动模块来获取到，因此这里值的共享和触发，使用父子传值$emit实现，另外，两边分别对该值进行watch，来分别触发对应的位置更新。包括边界值和容差值，都是需要根据这个距离值来计算。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div id&#x3D;&quot;app&quot;&gt;</span><br><span class="line">    &lt;Paper&gt;&lt;&#x2F;Paper&gt;</span><br><span class="line">    &lt;Slide&gt;&lt;&#x2F;Slide&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="拼图模块的实现"><a href="#拼图模块的实现" class="headerlink" title="拼图模块的实现"></a>拼图模块的实现</h3><blockquote>
+<p>在写这部分内容之前，先要弄清楚，如果是使用canvas来实现，应该怎样去做？<br>图片模块有底图和碎片，两个部分，肯定是使用两个canvas去实现，并且，两个canvas是需要绝对定位的:</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">&lt;div class&#x3D;&quot;wrap&quot;&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;canvas-wrap&quot;&gt;</span><br><span class="line">        &lt;canvas class&#x3D;&quot;paper&quot; ref&#x3D;&quot;paper&quot; width&#x3D;&quot;300&quot; height&#x3D;&quot;180&quot;&gt;&lt;&#x2F;canvas&gt;</span><br><span class="line">        &lt;canvas class&#x3D;&quot;block&quot; ref&#x3D;&quot;block&quot; width&#x3D;&quot;300&quot; height&#x3D;&quot;180&quot;&gt;&lt;&#x2F;canvas&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;style lang&#x3D;&quot;less&quot; scoped&gt;</span><br><span class="line">.canvas-wrap &#123;</span><br><span class="line">    width: 300px;</span><br><span class="line">    height: 180px;</span><br><span class="line">    margin: 0 auto;</span><br><span class="line">    position: relative;</span><br><span class="line"></span><br><span class="line">    canvas &#123;</span><br><span class="line">        position: absolute;</span><br><span class="line">        top: 0;</span><br><span class="line">        left: 0;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    .block &#123;</span><br><span class="line">        transform:translateX(-180px)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>碎片的canvas绝对定位，并且left是个往左偏移的负值，这里我们没有使用left去实现，而是用了性能更好一点的transform。</p>
+</blockquote>
+<blockquote>
+<p>至于两张canvas大小一模一样，因为其实看上去底图和碎片是两个部分，但其实使用的是同一张图，只是canvas绘制的原理不一样而已。</p>
+</blockquote>
+<blockquote>
+<p>画布有了，这时候我们需要一张图片了，也就是用来绘制到canvas上面的图片文件，我们可以在mounted里面，create一个img元素:</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">mounted() &#123;</span><br><span class="line">        this.$nextTick(() &#x3D;&gt; &#123;</span><br><span class="line">            let paper &#x3D; this.$refs.paper</span><br><span class="line">            let block &#x3D; this.$refs.block</span><br><span class="line">            let ctx &#x3D; paper.getContext(&#39;2d&#39;)</span><br><span class="line">            let block_ctx &#x3D; block.getContext(&#39;2d&#39;)</span><br><span class="line">            let img &#x3D; document.createElement(&#39;img&#39;)</span><br><span class="line">            img.onload &#x3D; () &#x3D;&gt; &#123; </span><br><span class="line">                ctx.drawImage(img, 0, 0, 300, 180)</span><br><span class="line">                this.draw(ctx,&#39;fill&#39;)</span><br><span class="line">                &#x2F;&#x2F;绘制碎片形状</span><br><span class="line">                this.draw(block_ctx,&#39;clip&#39;) &#x2F;&#x2F;这里要注意，先画路径，之后再填充图片</span><br><span class="line">                block_ctx.drawImage(img, 0, 0, 300, 180)</span><br><span class="line">            &#125;</span><br><span class="line">            img.src &#x3D; require(&quot;..&#x2F;assets&#x2F;bg-img.jpg&quot;)</span><br><span class="line"></span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这里，我们在nextTick的回调里进行相关的dom操作，是为了保证这个时候，dom确实都已经加载渲染完成。我们获取两个canvas，分别获取对应的上下文，生成一个Img元素，给它的src赋值，注意，我们必须要在图片加载的回调里，进行相关的绘制工作，否则，canvas画布肯定是空白一片的。</p>
+</blockquote>
+<blockquote>
+<p>在img的onload里，进行两个部分的绘制处理，暂时先不看具体的绘制操作，我们先理一下两个部分的区别和共同点：共同点很明显，就是绘制路径一模一样，这部分我们可以共用，区别就是，一个是填充空白，另一个是去掉区域外的其他图片像素，下面我们来看下，具体的绘制逻辑:</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">methods: &#123;</span><br><span class="line">        &#x2F;&#x2F;获取随机范围</span><br><span class="line">        getRandom(min, max) &#123;</span><br><span class="line">            let c &#x3D; max - min + 1</span><br><span class="line">            return Math.random() * c + min</span><br><span class="line">        &#125;,</span><br><span class="line"></span><br><span class="line">        draw(ctx,opt) &#123;</span><br><span class="line">            ctx.beginPath()</span><br><span class="line">            ctx.moveTo(this.x, this.y)</span><br><span class="line">            ctx.lineTo(this.x + 10, this.y)</span><br><span class="line">            &#x2F;&#x2F;绘制上方弧形</span><br><span class="line">            ctx.arc(this.x + 25, this.y, 10, this.deg2arc(-180), this.deg2arc(0))</span><br><span class="line">            ctx.lineTo(this.x + 50, this.y)</span><br><span class="line">            ctx.lineTo(this.x + 50, this.y + 10)</span><br><span class="line">            &#x2F;&#x2F;绘制右侧弧形</span><br><span class="line">            ctx.arc(this.x + 50, this.y + 25, 10, this.deg2arc(-90), this.deg2arc(90))</span><br><span class="line">            ctx.lineTo(this.x + 50, this.y + 50)</span><br><span class="line">            ctx.lineTo(this.x, this.y + 50)</span><br><span class="line">            ctx.lineTo(this.x, this.y + 40)</span><br><span class="line">            &#x2F;&#x2F;绘制左侧弧形,true表示逆时针绘制</span><br><span class="line">            ctx.arc(this.x, this.y + 25, 10, this.deg2arc(90), this.deg2arc(-90), true)</span><br><span class="line">            ctx.lineTo(this.x, this.y)</span><br><span class="line">            ctx.lineWidth &#x3D; 1;</span><br><span class="line">            ctx.fillStyle &#x3D; &quot;rgba(255, 255, 255, 1)&quot;;</span><br><span class="line">            ctx.strokeStyle &#x3D; &quot;rgba(255, 255, 255, 1)&quot;;</span><br><span class="line">            ctx.stroke();</span><br><span class="line">            ctx[opt]() </span><br><span class="line">            ctx.globalCompositeOperation &#x3D; &quot;xor&quot;;</span><br><span class="line">        &#125;,</span><br><span class="line">        &#x2F;&#x2F;角度转弧度</span><br><span class="line">        deg2arc(deg) &#123;</span><br><span class="line">            return deg &#x2F; 180 * Math.PI</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这里主要逻辑就是，首先画路径，其中canvas.arc这个函数的最后一个参数，代表是否逆时针方向绘制，这个在我们绘制左侧凹进去的弧形的时候，很有作用。我们吧’fill’和’clip’当做参数传入，最后的一步调用不同的处理方式，fill就是填充的意思，默认填充白色。clip则是将画布沿着路径裁剪，最后我们在裁剪之后的画布上绘制原来的图片，并且ctx.globalCompositeOperation = “xor”，是改变混合模式，意思就是，选择图片与路径重合的区域展示，其余区域则透明。</p>
+</blockquote>
+<blockquote>
+<p>这样我们就能看到，其实两张canvas都展示了，为了表现明显一些，加了一点描边，突出：</p>
+</blockquote>
+<p><img src="https://github.com/bettermu/blog-picture-store/blob/master/20191113/2.png?raw=true"></p>
+<h3 id="滑动模块的实现"><a href="#滑动模块的实现" class="headerlink" title="滑动模块的实现"></a>滑动模块的实现</h3><blockquote>
+<p>滑块模块的实现，主要思路就是，监听鼠标的mousedown mousemove mouseup事件，这里为了保持移动的顺滑，我们需要将监听代理到document对象上面，同时我们需要在up事件中，移出掉move事件，这就意味着，我们的事件函数，需要是具名的，因为removeListener需要的是具名函数参数。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">&lt;div class&#x3D;&quot;wrap&quot;&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;progress-wrap&quot;&gt;</span><br><span class="line">        &lt;div ref&#x3D;&quot;inner&quot; class&#x3D;&quot;inner-bar&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">        &lt;div ref&#x3D;&quot;button&quot; class&#x3D;&quot;button&quot; @mousedown&#x3D;&quot;down&quot; @mousemove&#x3D;&quot;move&quot; @mouseup&#x3D;&quot;up&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">methods: &#123;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;按下按钮处理</span><br><span class="line">        down(e) &#123;</span><br><span class="line">            if (e.target &#x3D;&#x3D;&#x3D; this.$refs.button) &#123;</span><br><span class="line">                this.isDown &#x3D; true</span><br><span class="line">                this.x &#x3D; e.pageX</span><br><span class="line">                document.addEventListener(&quot;mousemove&quot;, this.move)</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;,</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;移动按钮处理</span><br><span class="line">        move(e) &#123;</span><br><span class="line">            if (this.isDown) &#123;</span><br><span class="line">                    this.curX &#x3D; e.pageX</span><br><span class="line">                    this.diff &#x3D; (this.curX - this.x) &lt; -2 ? 0 : (this.curX - this.x) &gt; 220 ? 220 : this.curX - this.x</span><br><span class="line">                    if (this.diff &gt; -2 &amp;&amp; this.diff &lt; 260) &#123;</span><br><span class="line">                        this.$refs.inner.style.width &#x3D; (this.diff + 20) + &#39;px&#39;</span><br><span class="line">                        this.$refs.button.style.transform &#x3D; &#96;translateX($&#123;this.diff&#125;px)&#96;</span><br><span class="line">                    &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        &#x2F;&#x2F;鼠标抬起处理</span><br><span class="line">        up() &#123;</span><br><span class="line">            if (this.diff &gt; 178 &amp;&amp; this.diff &lt; 182) &#123;</span><br><span class="line">                alert(&quot;验证成功&quot;)</span><br><span class="line">            &#125;</span><br><span class="line">            document.removeEventListener(&#39;mousemove&#39;, this.move)</span><br><span class="line">            this.reset()</span><br><span class="line">        &#125;,</span><br><span class="line"></span><br><span class="line">        reset() &#123;</span><br><span class="line">            this.isDown &#x3D; false</span><br><span class="line">            this.diff &#x3D; 0</span><br><span class="line">            this.$refs.inner.style.width &#x3D; 20 + &#39;px&#39;</span><br><span class="line">            this.$refs.button.style.transform &#x3D; &#96;translateX(0)&#96;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>我们通过mousedown记录起始点的pageX,在移动滑块的时候，t计算move的事件对象的pageX与起点的差值，来移动滑块，改变滑块的transform，并且改变进度条的颜色值。</p>
+</blockquote>
+<h3 id="关于差值在组件间的传递和实时监听"><a href="#关于差值在组件间的传递和实时监听" class="headerlink" title="关于差值在组件间的传递和实时监听"></a>关于差值在组件间的传递和实时监听</h3><blockquote>
+<p>还有一个重要的一点，现在这两个组件各自的交互和样式，都实现了，那么如何去让滑块事件产生的diff差值，传递到图片模块去，让碎片跟随滑块移动？这里就要介绍下vue组件之间的传值方式，这里使用的是emit的方式，slide组件，watch diff的变化，并且触发change事件：回传给父组件，父组件拿到diff值之后，传入paper组件，paper组件里，通过watch diff的变化，来改变碎片的偏移值：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;slide.vue</span><br><span class="line">watch: &#123;</span><br><span class="line">        diff(newV) &#123;</span><br><span class="line">            this.$emit(&#39;change&#39;, newV)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">&#x2F;&#x2F;父组件</span><br><span class="line">&lt;div id&#x3D;&quot;app&quot;&gt;</span><br><span class="line">    &lt;Paper :diff&#x3D;&quot;diff&quot;&gt;&lt;&#x2F;Paper&gt;</span><br><span class="line">    &lt;Slide @change&#x3D;&quot;change&quot;&gt;&lt;&#x2F;Slide&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">  </span><br><span class="line"> &#x2F;&#x2F;paper.vue</span><br><span class="line"> watch:&#123;</span><br><span class="line">        diff(newV)&#123;</span><br><span class="line">            let v &#x3D; newV - 180</span><br><span class="line">            this.$refs.block.style.transform &#x3D; &#96;translateX($&#123;v&#125;px)&#96;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br></pre></td></tr></table></figure>
+<h3 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h3><p><img src="https://github.com/bettermu/blog-picture-store/blob/master/20191113/1.gif?raw=true"></p>
+<h3 id="需要注意的一些点"><a href="#需要注意的一些点" class="headerlink" title="需要注意的一些点"></a>需要注意的一些点</h3><blockquote>
+<p>需要注意的点:</p>
+</blockquote>
+<ul>
+<li>首先，canvas的api要做到了解和熟悉，至少，路径绘制和混合模式，要清楚，这是拼图的核心实现。特别是圆弧的逆时针绘制，参数要掌握。</li>
+<li>滑动事件的原理，需要document委托，还有，进行标志位判断，只有在鼠标按下之后，move的事件才能触发，并且在up事件里，及时移出掉监听。</li>
+<li>在img的onload事件中，进行canvas绘制，否则画布不会有任何的响应。</li>
+<li>需要对滑块的偏移进行限制，计算出边界值，防止滑块超出预料的范围。</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><blockquote>
+<p>纸上得来终觉浅，绝知此事要躬行。只有自己亲自试试，才能更熟悉其中的一些原理和技巧。关于canvas的东西，光看文档，作用不太大，亲自试了，感受才能更深刻。</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <!-- 本文结束标记 -->
+<div>
+  
+    <div>
+  
+    <div style="text-align:center;color:#ccc;font-size:16px;">-------------&nbsp;本文结束&nbsp;<i class="fa fa-globe"></i>&nbsp;感谢你的阅读&nbsp;-------------</div>
+  
+</div>
+
+  
+</div>
+<!-- 本文结束标记END -->
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/vue/" rel="tag"><i class="fa fa-tag"></i> vue</a>
+          
+            <a href="/tags/components/" rel="tag"><i class="fa fa-tag"></i> components</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/12/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%A1%B9%E7%9B%AE%E9%87%8C%E5%85%B3%E4%BA%8Eel-scrollbar%E7%9A%84%E4%BD%BF%E7%94%A8/" rel="next" title="记一次项目里关于el-scrollbar的使用">
+                <i class="fa fa-chevron-left"></i> 记一次项目里关于el-scrollbar的使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/01/06/h5%E4%B8%ADdata-%E5%B1%9E%E6%80%A7%E7%9A%84%E4%BD%BF%E7%94%A8%E4%BB%8B%E7%BB%8D/" rel="prev" title="h5中data-*属性的使用介绍">
+                h5中data-*属性的使用介绍 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/bettermu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/u/3199082000?refer_flag=1001030101_&is_all=1" target="_blank" title="Weibo">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.cnblogs.com/bettermu/" target="_blank" title="博客园">
+                      
+                        <i class="fa fa-fw fa-rss"></i>博客园</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/mu-xiao-feng-45-99/activities" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%94%A8vue%E6%89%8B%E5%86%99%E4%B8%80%E4%B8%AA%E6%8B%BC%E5%9B%BE%E6%BB%91%E5%9D%97%E7%9A%84%E7%BB%84%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">如何用vue手写一个拼图滑块的组件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%83%B3%E6%89%8B%E5%86%99%E4%B8%80%E4%B8%AA%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="nav-number">1.1.</span> <span class="nav-text">想手写一个的原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B4%E4%BD%93%E7%9A%84%E6%80%9D%E8%B7%AF%E6%A2%B3%E7%90%86"><span class="nav-number">1.2.</span> <span class="nav-text">整体的思路梳理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8B%BC%E5%9B%BE%E6%A8%A1%E5%9D%97%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.3.</span> <span class="nav-text">拼图模块的实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BB%91%E5%8A%A8%E6%A8%A1%E5%9D%97%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.4.</span> <span class="nav-text">滑动模块的实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E5%B7%AE%E5%80%BC%E5%9C%A8%E7%BB%84%E4%BB%B6%E9%97%B4%E7%9A%84%E4%BC%A0%E9%80%92%E5%92%8C%E5%AE%9E%E6%97%B6%E7%9B%91%E5%90%AC"><span class="nav-number">1.5.</span> <span class="nav-text">关于差值在组件间的传递和实时监听</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C"><span class="nav-number">1.6.</span> <span class="nav-text">最终效果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%E4%B8%80%E4%BA%9B%E7%82%B9"><span class="nav-number">1.7.</span> <span class="nav-text">需要注意的一些点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.8.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <!--<div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">better沐小泡</span>
+
+  
+</div>
+-->
+
+<!-- 
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+-->
+
+<!-- 新增访客统计代码 -->
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-balance-scale"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">better沐小泡</span>
+</div>
+
+<div class="busuanzi-count">
+    <script async="" src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      访问用户： <span class="busuanzi-value" id="busuanzi_value_site_uv"></span> 人
+    </span>
+    <div class="powered-by"></div>
+    <span class="site-uv">
+      <i class="fa fa-eye"></i>
+      访问次数： <span class="busuanzi-value" id="busuanzi_value_site_pv"></span> 次
+    </span>
+    <!-- 博客字数统计 -->
+    <span class="site-pv">
+      <i class="fa fa-pencil"></i>
+      博客全站共： <span class="post-count"></span> 字
+    </span>
+</div>
+<!-- 新增访客统计代码 END-->
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <!-- 页面点击小红心 -->
+  <script type="text/javascript" src="/js/src/love.js"></script>
+
+</body>
+</html>
